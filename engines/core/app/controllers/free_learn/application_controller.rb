@@ -1,4 +1,4 @@
-module Core
+module FreeLearn
   class ApplicationController < ActionController::Base
   end
 end
