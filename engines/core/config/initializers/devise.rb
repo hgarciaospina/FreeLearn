@@ -4,7 +4,7 @@ Devise.setup do |config|
   # The secret key used by Devise. Devise uses this key to generate
   # random tokens. Changing this key will render invalid all existing
   # confirmation, reset password and unlock tokens in the database.
-  # config.secret_key = '0d57b9b31da39851f850aff0ece9971c6fda656d6232f8cc3e0a379a8df43125b99ba8f8edf696abe964dc9577512fddd2cc465ef6af9779bffb09b86cfc3fe6'
+  # config.secret_key = 'f5ed62d3d541e9c3c35dc9fbc836d47418bdcb9ec74d2696860d3237964460fc76be3d60a28dda571886200b36641f66a03b176779c3c30b8df53022fe4b3fa9'
 
   # ==> Mailer Configuration
   # Configure the e-mail address which will be shown in Devise::Mailer,
@@ -97,7 +97,7 @@ Devise.setup do |config|
   config.stretches = Rails.env.test? ? 1 : 10
 
   # Setup a pepper to generate the encrypted password.
-  # config.pepper = 'add814c744e03c8dd6d2a8ee62caa349cb7242c3257a0eebb737de5d1c35a9b51f82411a57aaf5683ab8c9282a437582276f6969e02a8b5e087d9aa31a73a94e'
+  # config.pepper = '6801079b9c8dad30afa45e6ecad488e14b3d5e1e1a9b1a6e4f72929979717020959cedb8c783c0a03686f648ee3858963ad2f5969925a0fbd06862d1d3ccbd1a'
 
   # ==> Configuration for :confirmable
   # A period that the user is allowed to access the website even without
@@ -259,5 +259,4 @@ Devise.setup do |config|
 
   config.router_name = :free_learn
   config.parent_controller = 'FreeLearn::ApplicationController'
-
 end
