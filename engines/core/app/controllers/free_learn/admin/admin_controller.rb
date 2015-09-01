@@ -1,9 +1,9 @@
 module FreeLearn
 	module Admin
 		class AdminController < ApplicationController
-			def index
-				@users = FreeLearn::User.ordered
-			end
+		 	def index
+
+      		end 
 		end
 	end
 end
