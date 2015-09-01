@@ -21,6 +21,13 @@
 						<li class="<%= active(free_learn.edit_user_registration_path) %>">
 							<%= link_to 'My Account', free_learn.edit_user_registration_path %>
 						</li>
+
+						<%- if current_user.admin? %>
+							<li class="<%= active(free_learn.admin_path) %>">
+								<%= link_to 'Admin', free_learn.admin_path %>
+							</li>
+						<% end %>
+
 						<li>
 							<%= link_to 'Logout', free_learn.destroy_user_session_path, method: :delete %>
 						</li>

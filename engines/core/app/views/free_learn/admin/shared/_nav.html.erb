@@ -1,0 +1,12 @@
+<ul class="nav nav-pills navbar-right">
+	<li role="presentation" class="<%= active(free_learn.admin_path) %>">
+		<%= link_to 'Dashboard', free_learn.admin_path %>
+	</li>
+	<li role="presentation" class="<%= active(free_learn.admin_users_path) %>">
+		<%= link_to free_learn.admin_users_path do %>
+			Users
+			<span class="badge"><%= FreeLearn::User.count %></span>
+		<% end %>
+	</li>
+</ul>
+<div class='clearfix'></div>
