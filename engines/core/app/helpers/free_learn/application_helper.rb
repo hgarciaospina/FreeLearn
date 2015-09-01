@@ -10,5 +10,9 @@ module FreeLearn
 		def flash_class(level)
 			FLASH_CLASSES[level]
 		end
+
+		def active(path)
+			current_page?(path) ? 'active' : ''
+		end
 	end
 end
