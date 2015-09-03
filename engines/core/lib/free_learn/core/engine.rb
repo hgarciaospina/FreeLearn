@@ -1,7 +1,7 @@
 module FreeLearn
 	module Core
 	  class Engine < ::Rails::Engine
-	    isolate_namespace Core
+	    isolate_namespace FreeLearn
 
 	    paths["app/views"] << "app/views/free_learn"
 

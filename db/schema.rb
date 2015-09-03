@@ -13,7 +13,7 @@
 
 ActiveRecord::Schema.define(version: 20150901151051) do
 
-  create_table "users", force: :cascade do |t|
+  create_table "free_learn_users", force: :cascade do |t|
     t.string   "email",                  default: "", null: false
     t.string   "encrypted_password",     default: "", null: false
     t.string   "reset_password_token"
@@ -29,7 +29,7 @@ ActiveRecord::Schema.define(version: 20150901151051) do
     t.boolean  "admin"
   end
 
-  add_index "users", ["email"], name: "index_users_on_email", unique: true
-  add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+  add_index "free_learn_users", ["email"], name: "index_free_learn_users_on_email", unique: true
+  add_index "free_learn_users", ["reset_password_token"], name: "index_free_learn_users_on_reset_password_token", unique: true
 
 end

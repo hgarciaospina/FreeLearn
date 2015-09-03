@@ -1,7 +1,7 @@
 PATH
   remote: engines/core
   specs:
-    free_learn_core (0.0.1)
+    free_learn_core (0.0.2)
       autoprefixer-rails (~> 5.1.5)
       bootstrap-sass (~> 3.3.3)
       devise (~> 3.4.1)
