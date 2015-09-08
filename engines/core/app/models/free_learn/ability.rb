@@ -1,4 +1,4 @@
-class Ability
+class FreeLearn::Ability
   include CanCan::Ability
 
   def initialize(user)

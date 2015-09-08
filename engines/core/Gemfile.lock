@@ -173,6 +173,3 @@ DEPENDENCIES
   rspec-rails
   sqlite3
   test-unit
-
-BUNDLED WITH
-   1.10.5

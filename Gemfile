@@ -33,6 +33,9 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 # gem 'capistrano-rails', group: :development
 
 #Engines of FreeLearn
+gem 'modular_engine'
+gem 'deface'
+ 
 gem 'free_learn_core', path: 'engines/core'
 
 group :development, :test do
