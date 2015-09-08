@@ -1,0 +1,25 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Scorms</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @scorms.each do |scorm| %>
+      <tr>
+        <td><%= link_to 'Show', scorm %></td>
+        <td><%= link_to 'Edit', edit_scorm_path(scorm) %></td>
+        <td><%= link_to 'Destroy', scorm, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Scorm', new_scorm_path %>

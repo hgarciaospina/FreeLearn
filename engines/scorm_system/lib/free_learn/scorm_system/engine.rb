@@ -1,7 +1,7 @@
 module FreeLearn
   module ScormSystem
     class Engine < ::Rails::Engine
-      isolate_namespace FreeLearn::ScormSystem
+      isolate_namespace FreeLearn
       paths["app/views"] << "app/views/free_learn/scorm_system"
     
       initializer :append_migrations do |app|

@@ -1,0 +1,17 @@
+<%= form_for(@scorm) do |f| %>
+  <% if @scorm.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@scorm.errors.count, "error") %> prohibited this scorm from being saved:</h2>
+
+      <ul>
+      <% @scorm.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
