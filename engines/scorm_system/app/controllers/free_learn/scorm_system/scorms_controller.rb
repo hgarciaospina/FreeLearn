@@ -1,6 +1,7 @@
 require_dependency "free_learn/application_controller"
 
 module FreeLearn
+  module ScormSystem
   class ScormsController < ApplicationController
     before_action :set_scorm, only: [:show, :edit, :update, :destroy]
 
@@ -59,4 +60,5 @@ module FreeLearn
         params[:scorm]
       end
   end
+end
 end

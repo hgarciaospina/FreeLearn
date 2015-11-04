@@ -15,9 +15,10 @@
 			<%- if current_user %>
 				<div class="navbar-collapse collapse" id="navbar">
 					<ul class="nav navbar-nav">
-						<li class="<%= active(free_learn.root_path) %>">
+						<li data-freelearn-hook="main_nav"  class="<%= active(free_learn.root_path) %>">
 							<%= link_to 'Home', free_learn.root_path %>
 						</li>
+						
 						<li class="<%= active(free_learn.edit_user_registration_path) %>">
 							<%= link_to 'My Account', free_learn.edit_user_registration_path %>
 						</li>
