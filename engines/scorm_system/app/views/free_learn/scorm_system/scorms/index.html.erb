@@ -12,9 +12,9 @@
   <tbody>
     <% @scorms.each do |scorm| %>
       <tr>
-        <td><%= link_to 'Show', scorm %></td>
+        <td><%= link_to 'Show',  scorm_path(scorm) %></td>
         <td><%= link_to 'Edit', edit_scorm_path(scorm) %></td>
-        <td><%= link_to 'Destroy', scorm, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Destroy', scorm_path(scorm), method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>

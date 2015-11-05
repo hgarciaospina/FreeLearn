@@ -1,17 +1,27 @@
-<%= form_for(@scorm) do |f| %>
-  <% if @scorm.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@scorm.errors.count, "error") %> prohibited this scorm from being saved:</h2>
+<div	class="row">
+	<div	class="col-md-8">
+			<%	if	@scorm.errors.any?	%>
+					<div	id="error_explanation">
+							<h2>
+								<%=	pluralize(@scorm.errors.count,	"error")	%>
+								prohibited	this	contact	from	being	saved:</h2>
+							<ul>
+							<%	@scorm.errors.full_messages.each	do	|message|	%>
+									<li><%=	message	%></li>
+							<%	end	%>
+						</ul>
+					</div>
+			<%	end	%>
 
-      <ul>
-      <% @scorm.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
+			<div class="form-group">
+			 <%= f.label :title %>
+			 <%= f.text_field :title, class: 'form-control' %>
+		 </div>
 
-  <div class="actions">
-    <%= f.submit %>
-  </div>
-<% end %>
+		 <div class="form-group">
+			 <%= f.label :file %>
+			 <%= f.file_field :file, class: 'form-control'%>
+		 </div>
+
+	</div>
+</div>

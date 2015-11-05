@@ -12,5 +12,6 @@ gemspec
 
 # To use a debugger
 # gem 'byebug', group: [:development, :test]
-
+#TODO Find the way to make this gem only in the gemspec work, when impoting from git
+gem "scorm", :git => 'git://github.com/abenitoc/scorm.git', :branch => "master"
 gem 'free_learn_core', path: '../core'

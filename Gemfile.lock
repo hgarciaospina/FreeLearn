@@ -1,3 +1,11 @@
+GIT
+  remote: git://github.com/abenitoc/scorm.git
+  revision: b3d47f9c90ea2f314859b0e92fd30113775f2613
+  branch: master
+  specs:
+    scorm (1.0.5)
+      rubyzip (>= 1.0.0)
+
 PATH
   remote: engines/core
   specs:
@@ -74,6 +82,7 @@ GEM
       activesupport (>= 3.0)
     cocaine (0.5.7)
       climate_control (>= 0.0.3, < 1.0)
+    coderay (1.1.0)
     coffee-rails (4.1.0)
       coffee-script (>= 2.2.0)
       railties (>= 4.0.0, < 5.0)
@@ -113,6 +122,7 @@ GEM
       nokogiri (>= 1.5.9)
     mail (2.6.3)
       mime-types (>= 1.16, < 3)
+    method_source (0.8.2)
     mime-types (2.6.1)
     mimemagic (0.3.0)
     mini_portile (0.6.2)
@@ -122,13 +132,17 @@ GEM
     nokogiri (1.6.6.2)
       mini_portile (~> 0.6.0)
     orm_adapter (0.5.0)
-    paperclip (4.3.0)
+    paperclip (4.3.1)
       activemodel (>= 3.2.0)
       activesupport (>= 3.2.0)
       cocaine (~> 0.5.5)
       mime-types
       mimemagic (= 0.3.0)
     polyglot (0.3.5)
+    pry (0.10.3)
+      coderay (~> 1.1.0)
+      method_source (~> 0.8.1)
+      slop (~> 3.4)
     rack (1.6.4)
     rack-test (0.6.3)
       rack (>= 1.0)
@@ -160,6 +174,7 @@ GEM
     rdoc (4.2.0)
     responders (2.1.0)
       railties (>= 4.2.0, < 5)
+    rubyzip (1.1.7)
     sass (3.4.16)
     sass-rails (5.0.3)
       railties (>= 4.0.0, < 5.0)
@@ -170,6 +185,7 @@ GEM
     sdoc (0.4.1)
       json (~> 1.7, >= 1.7.7)
       rdoc (~> 4.0)
+    slop (3.6.0)
     spring (1.3.6)
     sprockets (3.2.0)
       rack (~> 1.0)
@@ -208,8 +224,10 @@ DEPENDENCIES
   jbuilder (~> 2.0)
   jquery-rails
   modular_engine
+  pry
   rails (= 4.2.3)
   sass-rails (~> 5.0)
+  scorm!
   sdoc (~> 0.4.0)
   spring
   sqlite3
