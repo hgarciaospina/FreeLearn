@@ -8,7 +8,7 @@ Gem::Specification.new do |s|
   s.name        = "free_learn_scorm_creator"
   s.version     = FreeLearn::ScormCreator::VERSION
   s.authors     = ["abenitoc"]
-  s.email       = ["vermibeto@gmail.com"]
+  s.email       = ["bertocode@gmail.com"]
   s.homepage    = "TODO"
   s.summary     = "TODO: Summary of FreeLearn::ScormCreator."
   s.description = "TODO: Description of FreeLearn::ScormCreator."

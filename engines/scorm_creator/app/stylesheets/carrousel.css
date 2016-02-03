@@ -1,0 +1,290 @@
+div.carrousel_wrapper{
+    padding-bottom: 25px;
+}
+
+div.caroufredsel_wrapper{
+  overflow: visible !important;
+}
+
+div.image_carousel_single_row_game {
+    position: relative;
+    width: 540px;
+    overflow: hidden;
+    margin-left: 0px;
+}
+
+div.image_carousel_single_row_gallery {
+    position: relative;
+    width: 1100px;
+    overflow: hidden;
+    margin-left: 0px;
+}
+
+div.image_carousel_single_row > div.caroufredsel_wrapper {
+  margin-left: 55px !important;
+}
+
+div.image_carousel_multiple_row > div.caroufredsel_wrapper {
+  margin-left: 35px !important;
+}
+
+div.image_carousel_single_row {
+    padding: 85px 0 20px 0px;
+}
+
+div.image_carousel_multiple_row {
+    padding: 101px 0 60px 0px;
+}
+
+div.image_carousel img {
+    background-color: black;
+    margin: 6px;
+    display: block;
+    float: left;
+    border: 1px solid white;
+    width: 125px;
+    height: 125px;
+}
+
+a.prev, a.next {
+    background: url(/assets/carrousel_sprite.png) no-repeat transparent;
+    width: 45px;
+    height: 50px;
+    display: block;
+    position: absolute;
+	  outline: none;
+}
+
+a.prev {
+  left: -13px;
+  background-position: 0 0; 
+}
+a.prev:hover {      
+  background-position: 0 -50px; 
+}
+a.prev.disabled {   
+  background-position: 0 -99px !important;  
+}
+
+a.next {  
+  right: 0px;
+  background-position: -50px 0; 
+}
+
+a.next:hover {      
+  background-position: -50px -50px; 
+}
+
+a.next.disabled {   
+  background-position: -50px -100px !important;  
+}
+
+a.prev.disabled, a.next.disabled {
+    cursor: default;
+}
+a.prev span, a.next span {
+  display: none;
+}
+
+
+div.pagination {
+  text-align: center;
+	margin-right: 0px;
+	margin-top: 17px;
+}
+
+div.pagination a {
+  background: url(/assets/carrousel_sprite.png) 0 -260px no-repeat transparent;
+  width: 15px;
+  height: 15px;
+  margin: 0 5px 0 0;
+  display: inline-block;
+	outline: none;
+  border: none;
+  float: none;
+  padding: 0px;
+}
+
+div.pagination a:hover {
+  background: url(/assets/carrousel_sprite.png) 0 -260px no-repeat transparent;
+}
+
+div.pagination a.selected {
+  background: url(/assets/carrousel_sprite.png) 0 -260px no-repeat transparent;
+  background-position: -25px -260px;
+}
+
+div.pagination a.selected:hover {
+  background: url(/assets/carrousel_sprite.png) 0 -260px no-repeat transparent;
+  background-position: -25px -260px;
+}
+
+div.pagination a span {
+  display: none;
+}
+
+div.clearfix {
+    float: none;
+    clear: both;
+}
+
+
+/* Default style for single and multiple row */
+
+a.prev_single_row, a.next_single_row{
+  top: 120px;
+}
+
+a.prev_multiple_row, a.next_multiple_row{
+    top: 245px;
+}
+
+div.carrousel_element_single_row{
+  width: 100px;
+  height: 100px;
+  max-width: 150px;
+  max-height: 150px;
+  float: left;
+  margin-left: 35px;
+}
+
+div.carrousel_element_single_row > img.carrousel_element_single_row{
+  width: 100px;
+  height: 90px;
+  max-width: 150px;
+  max-height: 150px;
+  margin-left: -21px;
+}
+
+img.carrousel_element_selected {
+	-webkit-box-shadow: 4px 4px 9px rgba(50, 50, 50, 0.37);
+	-moz-box-shadow:    4px 4px 9px rgba(50, 50, 50, 0.37);
+	box-shadow:         4px 4px 9px rgba(50, 50, 50, 0.37);
+	border-radius: 13px;
+	-webkit-border-radius: 13px;
+	-moz-border-radius: 13px;
+	opacity: 1.0;
+  color: #0F9;
+}
+
+img.carrousel_element_selected:active {
+	-webkit-box-shadow: 4px 4px 9px rgba(50, 50, 50, 0.37);
+	-moz-box-shadow:    4px 4px 9px rgba(50, 50, 50, 0.37);
+	box-shadow:         4px 4px 9px rgba(50, 50, 50, 0.37);
+	border-radius: 13px;
+	-webkit-border-radius: 13px;
+	-moz-border-radius: 13px;
+	opacity: 1.0;
+}
+
+
+/* CSS for Games Carrousel */
+
+div.image_carousel_single_row_game {
+  padding: 5px 0 0px 0px;
+}
+
+div.image_carousel_single_row_game > div.caroufredsel_wrapper {
+  margin-left: 46px !important;
+}
+
+div.carrousel_element_single_row_game{
+  width: 125px;
+  height: 125px;
+  max-width: 125px;
+  max-height: 125px;
+  float: left;
+  margin-left: 35px;
+}
+
+p.carrousel_element_single_row_game{
+  margin: 0px;
+  max-width: 130px;
+  max-height: 20px;
+  margin-left: -70px;
+  text-align: center;
+  font-size: 16px;
+  font-family: Helvetica;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  padding-bottom: 1px;
+}
+
+div.carrousel_element_single_row_game > img.carrousel_element_single_row_game {
+  margin-left: -69px;
+}
+
+a.prev_single_row_game, a.next_single_row_game {
+  top: 73px;
+}
+
+/** ADD style to pagination class (Optional) */
+div.pagination_single_row_game {
+  margin-top: 34px;
+  margin-bottom: 15px;
+}
+
+
+
+/* CSS for Gallery Carrousel */
+
+div.image_carousel_single_row_gallery {
+  padding: 5px 0 0px 0px;
+}
+
+div.image_carousel_single_row_gallery > div.caroufredsel_wrapper {
+  margin-left: 83px !important;
+}
+
+div.image_carousel_single_row_gallery img{
+    background-color: black;
+    margin: 6px;
+    display: block;
+    float: left;
+    border: 1px solid white;
+    width: 140px;
+    height: 140px;
+}
+
+div.carrousel_element_single_row_gallery{
+  width: 140px;
+  height: 140px;
+  max-width: 143px;
+  max-height: 143px;
+  float: left;
+  margin-left: 37px;
+}
+
+p.carrousel_element_single_row_gallery{
+  margin: 0px;
+  max-width: 139px;
+  max-height: 20px;
+  margin-left: -104px;
+  text-align: center;
+  font-size: 16px;
+  font-family: Helvetica;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  padding-bottom: 1px;
+}
+
+div.carrousel_element_single_row_gallery > img.carrousel_element_single_row_gallery {
+  margin-left: -107px;
+}
+
+a.prev_single_row_gallery, a.next_single_row_gallery {
+  top: 73px;
+}
+
+/** ADD style to pagination class (Optional) */
+div.pagination_single_row_gallery {
+  margin-top: 40px;
+  margin-bottom: 15px;
+}
+
+div.game_gallery > div.carrousel_wrapper{
+  padding-bottom: 45px;
+}
+

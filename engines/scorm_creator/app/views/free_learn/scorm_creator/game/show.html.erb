@@ -1,0 +1,16 @@
+<script>
+	var settings = JSON.parse('<%=@settings.to_json.html_safe%>');
+
+	$(document).ready(function(){
+		$("#game").load(function(){
+			try {
+				document.getElementById("game").contentWindow.SGAME.loadSettings(settings);
+			} catch (e){ }
+		});
+	});
+</script>
+<div class="carrousel_title">
+	<p class="carrousel_title_text"> <%=@game.name%> </p>
+</div>
+<iframe id="game" src='<%=@template_url%>'></iframe>
+</body>

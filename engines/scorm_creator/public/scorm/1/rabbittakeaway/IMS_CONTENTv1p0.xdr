@@ -1,0 +1,88 @@
+<?xml version='1.0'?>
+<Schema  name = "IMS_CONTENTv1p0.xdr" xmlns="urn:schemas-microsoft-com:xml-data"
+  xmlns:dt="urn:schemas-microsoft-com:datatypes"
+  xmlns:xlink="urn:w3c:xlink">
+
+<!-- ATTRIBUTES standalone -->
+  <AttributeType name="href" dt:type="string"/>
+  <AttributeType name="identifierref" dt:type="idref"/>
+  <AttributeType name="parameters" dt:type="string"/>
+  <AttributeType name="identifier" dt:type="id"/>
+  <AttributeType name="default" dt:type="idref"/>
+  <AttributeType name="source" dt:type="string"/>  
+  <AttributeType name="version" dt:type="string"/>
+  <AttributeType name="resourcetype" dt:type="string"/>
+  <AttributeType name="title" dt:type="string"/>
+  <AttributeType name="isvisible" dt:type="boolean"/>
+  <AttributeType name="type" dt:type="string"/>
+
+<!-- ELEMENTS standalone-->
+  <ElementType name="schema" dt:type="string" content="textOnly" model="closed"/>
+  <ElementType name="schemaversion" dt:type="string" content="textOnly" model="closed"/>
+  
+<!-- ELEMENT MANIFESTREF -->
+  <ElementType name="manifestref" content="empty" model="open">
+    <attribute type="identifierref" required="yes"/>
+  </ElementType>
+
+<!-- ELEMENT FILE -->
+  <ElementType name = "file" content = "empty" model = "open">
+      <attribute type="href" required="yes"/>
+  </ElementType>
+
+<!-- ELEMENT RESOURCE -->
+  <ElementType name="resource" content="eltOnly" model="open" order="many">
+    <attribute type="identifier" required="yes"/>
+   <attribute type="type" required="yes"/>
+    <attribute type="href" required="no"/>
+	<attribute type="querystring" required="no"/>
+    <element type="metadata" minOccurs="0" maxOccurs="1"/>
+    <element type="file" minOccurs="1" maxOccurs="*"/>
+  </ElementType>
+
+<!-- ELEMENT RESOURCES -->
+  <ElementType name="resources" content="eltOnly" model="open" order="many">  	
+    <element type="resource" minOccurs="0" maxOccurs="*"/>
+    <element type="manifestref" minOccurs="0" maxOccurs="*"/>
+  </ElementType>
+
+<!-- ELEMENT ITEM -->
+  <ElementType name="item" content="eltOnly" model="open" order="many">
+    <attribute type="identifier" required="yes"/>
+    <attribute type="identifierref" required="no"/>
+    <attribute type="title" required="no"/>
+    <attribute type="isvisible" required="no"/>
+    <attribute type="parameters" required="no"/>
+    <element type="item" minOccurs="0" maxOccurs="*"/>
+  </ElementType>
+
+<!-- ELEMENT TABLEOFCONTENTS -->
+  <ElementType name="tableofcontents" content="eltOnly" model="open" order="seq">  	
+    <attribute type="identifier" required="yes"/>
+    <attribute type="title" required="no"/>
+    <element type="item" minOccurs="1" maxOccurs="*"/>
+  </ElementType>
+
+<!-- ELEMENT ORGANIZATIONS -->
+  <ElementType name="organizations" content="eltOnly" model="open" order="seq">
+    <attribute type="default" required="no"/>
+    <element type="tableofcontents" minOccurs="0" maxOccurs="*"/>
+  </ElementType>
+                                      
+<!-- ELEMENT METADATA -->
+  <ElementType name="metadata" content="eltOnly" model="open" order="seq">
+    <element type="schema" minOccurs="0" maxOccurs="1"/>
+    <element type="schemaversion" minOccurs="0" maxOccurs="1"/>
+  </ElementType>
+
+<!-- ELEMENT MANIFEST -->
+  <ElementType name="manifest" content="eltOnly" model="open" order="seq">
+    <attribute type="identifier" required="yes"/>
+    <attribute type="version" required="no"/>
+    <element type="metadata" minOccurs="0" maxOccurs="1"/>
+    <element type="organizations" minOccurs="1" maxOccurs="1"/>
+    <element type="resources" minOccurs="1" maxOccurs="1"/>
+    <element type="manifest" minOccurs="0" maxOccurs="*"/>
+  </ElementType>
+
+</Schema>

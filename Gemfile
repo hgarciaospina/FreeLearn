@@ -35,13 +35,14 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 #Engines of FreeLearn
 gem 'modular_engine'
 gem 'deface'
-gem "scorm", :git => 'git://github.com/abenitoc/scorm.git', :branch => "master"
+gem "scorm", :github => 'abenitoc/scorm', :branch => "master"
 
 #debugger
 gem 'pry'
 
 gem 'free_learn_core', path: 'engines/core'
-gem 'free_learn_scorm_system', path:'engines/scorm_system'
+gem 'free_learn_scorm_creator', path: 'engines/scorm_creator'
+#gem 'free_learn_scorm_system', path:'engines/scorm_system'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
