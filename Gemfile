@@ -35,7 +35,10 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 #Engines of FreeLearn
 gem 'modular_engine'
 gem 'deface'
-gem "scorm", :github => 'abenitoc/scorm', :branch => "master"
+gem "scorm", :git => 'https://github.com/abenitoc/scorm.git', :branch => "master"
+# Normal Version
+#gem "scorm", :github => 'abenitoc/scorm', :branch => "master"
+
 
 #debugger
 gem 'pry'

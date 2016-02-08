@@ -9,9 +9,9 @@ Gem::Specification.new do |s|
   s.version     = FreeLearn::ScormCreator::VERSION
   s.authors     = ["abenitoc"]
   s.email       = ["bertocode@gmail.com"]
-  s.homepage    = "TODO"
-  s.summary     = "TODO: Summary of FreeLearn::ScormCreator."
-  s.description = "TODO: Description of FreeLearn::ScormCreator."
+  s.homepage    = "http://www.twitter.com/berto_abc"
+  s.summary     = "Module for building scorms into the games"
+  s.description = "This Module get scorms and introduce them into games, also can recieve JSONs and translate them into scorms."
   s.license     = "MIT"
 
   s.files = Dir["{app,config,db,lib}/**/*", "MIT-LICENSE", "Rakefile", "README.rdoc"]
