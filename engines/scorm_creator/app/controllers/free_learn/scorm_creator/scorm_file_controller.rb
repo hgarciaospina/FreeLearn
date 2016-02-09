@@ -1,5 +1,4 @@
-module FreeLearn
-  module ScormCreator
+module FreeLearn::ScormCreator
   class ScormFileController < ApplicationController
     
     def new
@@ -25,5 +24,4 @@ module FreeLearn
     end
 
   end
-end
 end

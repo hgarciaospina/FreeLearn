@@ -1,5 +1,4 @@
-module FreeLearn
-  module ScormCreator
+module FreeLearn::ScormCreator
   class GameTemplateController < ApplicationController
     #Controller in charge of Games Before adding any kind of scorm content
     def new
@@ -16,5 +15,4 @@ module FreeLearn
     end
 
   end
-end
 end

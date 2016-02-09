@@ -1,5 +1,4 @@
-module FreeLearn
-  module ScormCreator
+module FreeLearn::ScormCreator
 	class ApiController < ApplicationController
 
 		#
@@ -47,5 +46,4 @@ module FreeLearn
 
 		end
 	end
-end
 end

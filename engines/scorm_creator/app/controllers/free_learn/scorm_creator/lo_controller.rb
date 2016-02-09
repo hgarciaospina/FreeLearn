@@ -1,5 +1,4 @@
-module FreeLearn
-  module ScormCreator
+module FreeLearn::ScormCreator
   class LoController < ApplicationController
      
     def show
@@ -26,5 +25,4 @@ module FreeLearn
     end
 
   end
-end
 end

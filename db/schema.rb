@@ -13,6 +13,63 @@
 
 ActiveRecord::Schema.define(version: 20150901151051) do
 
+  create_table "free_learn_scorm_creator_event_mappings", force: :cascade do |t|
+    t.integer  "game_template_event_id"
+    t.integer  "game_id"
+    t.integer  "lo_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "free_learn_scorm_creator_game_template_events", force: :cascade do |t|
+    t.integer  "game_template_id"
+    t.string   "name"
+    t.string   "description"
+    t.string   "event_type"
+    t.integer  "id_in_game"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "free_learn_scorm_creator_game_templates", force: :cascade do |t|
+    t.string   "name"
+    t.string   "description"
+    t.string   "avatar_url"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "free_learn_scorm_creator_games", force: :cascade do |t|
+    t.integer  "game_template_id"
+    t.string   "name"
+    t.string   "description"
+    t.string   "avatar_url"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "free_learn_scorm_creator_los", force: :cascade do |t|
+    t.integer  "scorm_file_id"
+    t.string   "lo_type"
+    t.string   "scorm_type"
+    t.string   "href"
+    t.string   "metadata"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "free_learn_scorm_creator_scorm_files", force: :cascade do |t|
+    t.string   "name"
+    t.string   "description"
+    t.string   "avatar_url"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "source_file_name"
+    t.string   "source_content_type"
+    t.integer  "source_file_size"
+    t.datetime "source_updated_at"
+  end
+
   create_table "free_learn_users", force: :cascade do |t|
     t.string   "email",                  default: "", null: false
     t.string   "encrypted_password",     default: "", null: false

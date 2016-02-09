@@ -1,5 +1,4 @@
-module FreeLearn
-    module ScormCreator
+module FreeLearn::ScormCreator
   class GameController < ApplicationController
     
     def index
@@ -61,4 +60,4 @@ module FreeLearn
 
   end
 end
-end
+
