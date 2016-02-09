@@ -1,3 +1,5 @@
+module FreeLearn
+module ScormCreator
 class Lo < ActiveRecord::Base
 	#attr_accessible :created_at, :updated_at
 
@@ -30,4 +32,6 @@ class Lo < ActiveRecord::Base
 		return ids
 	end
 
+end
+end
 end

@@ -1,5 +1,7 @@
 require 'scorm/package'
 
+module FreeLearn
+module ScormCreator
 class ScormFile < ActiveRecord::Base
   #attr_accessible :created_at, :updated_at, :name, :description, :avatar_url
 
@@ -38,4 +40,6 @@ class ScormFile < ActiveRecord::Base
 	   end
 	end
   end
+end
+end
 end

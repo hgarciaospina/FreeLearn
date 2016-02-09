@@ -1,3 +1,5 @@
+module FreeLearn
+module ScormCreator
 class Game < ActiveRecord::Base
   #attr_accessible :created_at, :updated_at, :name, :description, :avatar_url
   
@@ -73,4 +75,6 @@ class Game < ActiveRecord::Base
 		return settings
 	end
 	
+end
+end
 end

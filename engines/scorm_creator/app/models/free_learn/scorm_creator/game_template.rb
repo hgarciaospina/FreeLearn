@@ -1,3 +1,5 @@
+module FreeLearn
+module ScormCreator
 class GameTemplate < ActiveRecord::Base
   #attr_accessible :created_at, :updated_at, :name, :description, :avatar_url
 
@@ -8,4 +10,6 @@ class GameTemplate < ActiveRecord::Base
   	return "/games/templates/" + self.id.to_s() + "/"
   end
 
+end
+end
 end
