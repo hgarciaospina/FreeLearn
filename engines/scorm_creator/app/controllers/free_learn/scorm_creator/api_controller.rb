@@ -11,6 +11,10 @@ module FreeLearn::ScormCreator
 		# => GAME SELECTION
 		# 
 		
+		def index
+			render "main_views/index"
+		end
+
 		def json_game
 			json_params = JSON.parse(params[:json])
 
@@ -22,14 +26,14 @@ module FreeLearn::ScormCreator
 
 		    #TODO: Create scorms from questions, quizzes and add here. Use Vish Editor or similar.
 		    los = [];
-	=begin
+=begin
 		    JSON.parse(params[:scorms_ids]).each do |scorm_id|
 		      sf = ScormFile.find_by_id(scorm_id)
 		      sf.los.each do |lo|
 		        los.push(lo)
 		      end
 		    end
-	=end
+=end
 
 			 #Event mapping for the game instace
 
