@@ -12,7 +12,7 @@ module FreeLearn
 				end
 			end
 		end
-		
+
 	  end
 	end
 end
