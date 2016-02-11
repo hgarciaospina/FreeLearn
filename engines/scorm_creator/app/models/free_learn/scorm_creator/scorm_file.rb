@@ -9,9 +9,10 @@ module FreeLearn
       has_attached_file :source,
       					:url  => ":rails_root/public/scorm/:id/:basename.:extension",
                       	:path => ":rails_root/public/scorm/:id/:basename.:extension"
-    					
+    	
       after_save :extract_scorm_file
 
+      do_not_validate_attachment_file_type :source
 
       def scos_ids
       	los.select{|lo| lo.scorm_type=="sco"}.collect(&:id)

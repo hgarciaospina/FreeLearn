@@ -1,4 +1,16 @@
 <div class="tool">
 	<div class="game_gallery">
+		<div class="row">
+			<div class="col-md-6">
+				<h1><%= t :build_games, scope: [:main_view] %></h1>
+				<p><%= t :description_games, scope: [:main_view] %></p>
+				<a class="btn btn-primary" href= <%= free_learn.new_game_path %> ><%= t :go %></a>
+			</div>
+			<div class="col-md-6">
+				<h1><%= t :build_courses, scope: [:main_view] %></h1>
+				<p><%= t :description_courses, scope: [:main_view] %></p>
+				<a class="btn btn-primary" href= <%= free_learn.new_game_path %> ><%= t :go %></a>
+			</div>
+		</div>
 	</div>
 </div>
