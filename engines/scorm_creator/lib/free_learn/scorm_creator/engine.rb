@@ -13,9 +13,9 @@ module FreeLearn
       end
     
       initializer :assets do |config|
-        Rails.application.config.assets.precompile += %w{ stylesheets/free_learn/scorm_creator/application.css }
-        Rails.application.config.assets.precompile += %w{ javascripts/free_learn/scorm_creator/application.js }
         Rails.application.config.assets.paths << root.join("app", "assets")
+        Rails.application.config.assets.precompile += %w{ stylesheets/free_learn/scorm_creator/application.css }
+        Rails.application.config.assets.precompile += %w{ javascripts/free_learn/scorm_creator/application.js }      
       end
 
       config.to_prepare do

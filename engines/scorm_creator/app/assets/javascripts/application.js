@@ -12,5 +12,5 @@
 //
 //= require jquery
 //= require_tree .
-//= require free_learn/scorm_creator/sgame
+//= require sgame
 
