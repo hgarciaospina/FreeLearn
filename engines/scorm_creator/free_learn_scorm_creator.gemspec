@@ -21,4 +21,5 @@ Gem::Specification.new do |s|
 
   s.add_dependency "deface"
   s.add_dependency "paperclip"
+  
 end
