@@ -1,6 +1,5 @@
 module FreeLearn::ScormCreator
 	class ApiController < ApplicationController
-		layout true
 		#
 		# API DEFINITION
 		#

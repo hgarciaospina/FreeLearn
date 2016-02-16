@@ -1,3 +1,7 @@
+<%= content_for :head do %>
+  <%#= render partial: "layouts/workaround" %>
+<% end %>
+
 <!--Hidden link for fancybox-->
 <div id="hidden_for_fancy" sytle="display:block">
   <a id="upload_scorm" href="/scorm_file/new" ></a>
@@ -69,7 +73,7 @@
 </div>
 
 <script type="text/javascript">
-$(document).ready(function(){
-  SGAME_WEB.init();
-});
+  $(document).ready(function(){
+    SGAME_WEB.init();
+  });
 </script>
