@@ -12,7 +12,14 @@ module FreeLearn
           end
         end
       end
-    
+      
+      config.local_asset_js_path = File.join(root, "vendor", "assets", "javascripts").to_s
+      config.local_asset_css_path = File.join(root, "vendor", "assets", "stylesheets").to_s
+
+      initializer "static assets" do |app|
+        app.middleware.insert_before(::ActionDispatch::Static, ::ActionDispatch::Static, "#{root}/public")
+      end
+
       config.to_prepare do
         Dir.glob(Engine.root.join("app", "decorators", "**", "*_decorator*.rb")) do |c|
           Rails.configuration.cache_classes ? require(c) : load(c)
