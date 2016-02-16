@@ -2,10 +2,21 @@
 <html>
 <head>
 <title>FreeLearn</title>
+
 	<%= stylesheet_link_tag "free_learn/application", media: "all" %>
 	<%= javascript_include_tag "free_learn/application" %>
+
+	<%= stylesheet_link_tag "free_learn/core/application", media: "all" %>
+	<%= javascript_include_tag "free_learn/core/application" %>
+
+	<% unless defined?(FreeLearn::ScormCreator) == nil %>
+		<%= stylesheet_link_tag    "free_learn/scorm_creator/application", media: "all" %>
+  		<%= javascript_include_tag "free_learn/scorm_creator/application" %>
+	<% end %>
+
+	
 	<%= csrf_meta_tags %>
-	<%= yield :head %>
+
 </head>
 <body>
 	<nav class="navbar navbar-inverse navbar-fixed-top">
