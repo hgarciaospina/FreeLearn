@@ -1,4 +1,4 @@
-require 'scorm/package'
+  require 'scorm/package'
 
 module FreeLearn
   module ScormCreator
