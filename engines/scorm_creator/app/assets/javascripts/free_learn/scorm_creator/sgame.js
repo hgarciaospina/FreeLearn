@@ -55,7 +55,7 @@ SGAME_WEB = (function($,undefined){
 	var _createGameCarrousel = function(games){
 		var carrouselImages = [];
 		var carrouselImagesTitles = [];
-		carrouselImages.push($("<img itemId='-1' src='assets/add_game.png'/>")[0]);
+		carrouselImages.push($("<img itemId='-1' src='/assets/add_game.png'/>")[0]);
 		carrouselImagesTitles.push("Upload");
 		$.each(games, function(i, game) {
 			var myImg = $("<img itemId="+game.id+" src="+game.avatar_url+" />");
@@ -107,7 +107,7 @@ SGAME_WEB = (function($,undefined){
 	var _createScormFilesCarrousel = function(sfs){
 		var carrouselImages = [];
 		var carrouselImagesTitles = [];
-		carrouselImages.push($("<img itemId='-1' src='assets/add_lo.png'/>")[0]);
+		carrouselImages.push($("<img itemId='-1' src='/assets/add_lo.png'/>")[0]);
 		carrouselImagesTitles.push("Upload");
 		$.each(sfs, function(i, lo) {
 			if(lo.avatar_url==""){
