@@ -44,35 +44,38 @@ module FreeLearn
 
 			def settings
 				settings = Hash.new
-				settings["name"]=self.name;
+				settings["name"]=self.name
 				settings["description"]=self.description;
-				settings["avatar"]=self.avatar_url;
-				settings["lo_list"] = self.lo_id_list;
-				settings["event_mapping"] = [];
+				settings["avatar"]=self.avatar_url
+				settings["lo_list"] = self.lo_id_list
+				settings["event_mapping"] = []
 
-				event_ids = [];
+				event_ids = []
 				self.event_mappings.each do |mapping|
 					unless event_ids.include?mapping.game_template_event_id or mapping.game_template_event_id==-1
-						event_ids.push(mapping.game_template_event_id);
+						event_ids.push(mapping.game_template_event_id)
 					end
 				end
 
 				event_ids.each do |event_id|
-					los = [];
+					los = []
 					#binding.pry
-					#TODO: Change find_all_by_game_template_event_id notation to RAILS 4
-					self.event_mappings.find_all_by_game_template_event_id(event_id).each do |mapping|
+					# TODO: Change find_all_by_game_template_event_id notation to RAILS 4 
+					# self.event_mappings.find_all_by_game_template_event_id(event_id)
+
+					self.event_mappings.each do |mapping|
 						if mapping.lo_id == -2
 							los.push("*");
 						else
 							los.push(mapping.lo_id);
 						end
 					end
-					event = GameTemplateEvent.find_by_id(event_id);
-					mapping = Hash.new;
-					mapping["event_id"] = event.id_in_game;
-					mapping["los_id"] = los;
-					settings["event_mapping"].push(mapping);
+					#binding.pry
+					event = GameTemplateEvent.find_by_id(event_id)
+					mapping = Hash.new
+					mapping["event_id"] = event.id_in_game
+					mapping["los_id"] = los
+					settings["event_mapping"].push(mapping)
 				end
 				return settings
 			end

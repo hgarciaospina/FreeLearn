@@ -7,6 +7,7 @@ FreeLearn::Core::Engine.routes.draw do
 		resources :lo
 		get 'games', to: "api#index"
 
+		get 'lo/:id/metadata' => 'lo#metadata'
 
 	end
 end

@@ -51,9 +51,11 @@ module FreeLearn::ScormCreator
       @game = Game.find_by_id(params[:id])
       @settings = @game.settings
       @template_url = @game.game_template.get_url
+      #binding.pry
       respond_to do |format|
+        #binding.pry
         format.html # show.html.erb
-        format.full { render :layout => false }
+        #format.full { render :layout => false }
         format.json { render :json => @settings }
       end
     end
