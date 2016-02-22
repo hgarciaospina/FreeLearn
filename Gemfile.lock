@@ -24,7 +24,17 @@ PATH
     free_learn_scorm_creator (0.0.1)
       deface
       free_learn_core
+      free_learn_scorm_system
       paperclip
+      rails (~> 4.2.3)
+
+PATH
+  remote: engines/scorm_system
+  specs:
+    free_learn_scorm_system (0.0.1)
+      deface
+      free_learn_core
+      paperclip (~> 4.3)
       rails (~> 4.2.3)
 
 GEM
@@ -227,6 +237,7 @@ DEPENDENCIES
   deface
   free_learn_core!
   free_learn_scorm_creator!
+  free_learn_scorm_system!
   jbuilder (~> 2.0)
   jquery-rails
   modular_engine

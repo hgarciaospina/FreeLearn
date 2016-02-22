@@ -19,6 +19,7 @@ Gem::Specification.new do |s|
 
   s.add_dependency "rails", "~> 4.2.3"
   s.add_dependency "free_learn_core"
+  s.add_dependency "free_learn_scorm_system"
   s.add_dependency "deface"
   s.add_dependency "paperclip"
   
