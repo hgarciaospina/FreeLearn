@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150901151051) do
+ActiveRecord::Schema.define(version: 20160223134914) do
 
   create_table "free_learn_scorm_creator_event_mappings", force: :cascade do |t|
     t.integer  "game_template_event_id"
@@ -48,16 +48,6 @@ ActiveRecord::Schema.define(version: 20150901151051) do
     t.datetime "updated_at"
   end
 
-  create_table "free_learn_scorm_creator_los", force: :cascade do |t|
-    t.integer  "scorm_file_id"
-    t.string   "lo_type"
-    t.string   "scorm_type"
-    t.string   "href"
-    t.string   "metadata"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
   create_table "free_learn_scorm_creator_scorm_files", force: :cascade do |t|
     t.string   "name"
     t.string   "description"
@@ -68,6 +58,16 @@ ActiveRecord::Schema.define(version: 20150901151051) do
     t.string   "source_content_type"
     t.integer  "source_file_size"
     t.datetime "source_updated_at"
+  end
+
+  create_table "free_learn_scorm_system_los", force: :cascade do |t|
+    t.integer  "scorm_file_id"
+    t.string   "lo_type"
+    t.string   "scorm_type"
+    t.string   "href"
+    t.string   "metadata"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "free_learn_users", force: :cascade do |t|
