@@ -119,7 +119,7 @@ namespace :db do
 	sokobanInstance = FreeLearn::ScormCreator::Game.create! :name=>"Sokoban Example", :description=>"Sokoban instance example", :avatar_url=>"/images/devilAvatar.gif", :game_template_id=>sokoban.id
 
 	#Event mapping for the sokoban game
-	FreeLearn::ScormCreator::Lo.all_ids.each do |lo_id|
+	FreeLearn::ScormSystem::Lo.all_ids.each do |lo_id|
 		FreeLearn::ScormCreator::EventMapping.create :game_id => sokobanInstance.id, :game_template_event_id => -1, :lo_id => lo_id
 	end
 	FreeLearn::ScormCreator::EventMapping.create! :game_id => sokobanInstance.id, :game_template_event_id => sokobanEvent1.id, :lo_id => -2 #-2 is the convention for random

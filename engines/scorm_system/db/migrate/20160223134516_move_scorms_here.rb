@@ -8,7 +8,7 @@ class MoveScormsHere < ActiveRecord::Migration
       t.string :metadata
       t.timestamps
     end
-     create_table :free_learn_scorm_creator_scorm_files do |t|
+     create_table :free_learn_scorm_system_scorm_files do |t|
       t.string :name
       t.string :description
       t.string :avatar_url

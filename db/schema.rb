@@ -48,7 +48,17 @@ ActiveRecord::Schema.define(version: 20160223134914) do
     t.datetime "updated_at"
   end
 
-  create_table "free_learn_scorm_creator_scorm_files", force: :cascade do |t|
+  create_table "free_learn_scorm_system_los", force: :cascade do |t|
+    t.integer  "scorm_file_id"
+    t.string   "lo_type"
+    t.string   "scorm_type"
+    t.string   "href"
+    t.string   "metadata"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "free_learn_scorm_system_scorm_files", force: :cascade do |t|
     t.string   "name"
     t.string   "description"
     t.string   "avatar_url"
@@ -58,16 +68,6 @@ ActiveRecord::Schema.define(version: 20160223134914) do
     t.string   "source_content_type"
     t.integer  "source_file_size"
     t.datetime "source_updated_at"
-  end
-
-  create_table "free_learn_scorm_system_los", force: :cascade do |t|
-    t.integer  "scorm_file_id"
-    t.string   "lo_type"
-    t.string   "scorm_type"
-    t.string   "href"
-    t.string   "metadata"
-    t.datetime "created_at"
-    t.datetime "updated_at"
   end
 
   create_table "free_learn_users", force: :cascade do |t|
