@@ -23,49 +23,49 @@ namespace :db do
   	
 
   	#first scorm file with its learning object
-	sf1 = FreeLearn::ScormCreator::ScormFile.create!  :name  => "Rabbittakeaway",
+	sf1 = FreeLearn::ScormSystem::ScormFile.create!  :name  => "Rabbittakeaway",
 	                        :description   => "Minigame to learn maths with rabbits",
 	                        :avatar_url => "/images/rabbittakeaway_300.jpg",
 						    :source =>  File.open(File.join(FreeLearn::ScormCreator::Engine.root, 'public/scorm/1/rabbittakeaway.zip'))
 
 	#second scorm file with its learning object
-	sf2 = FreeLearn::ScormCreator::ScormFile.create!  :name  => "Golf",
+	sf2 = FreeLearn::ScormSystem::ScormFile.create!  :name  => "Golf",
 	                        :description   => "SCORM package that explains everything about golf",
 	                        :avatar_url => "/images/golf1.jpg",
 						    :source =>  File.open(File.join(FreeLearn::ScormCreator::Engine.root, 'public/scorm/2/golf_n_sco.zip'))
 
 	#third scorm file with its learning object
-	sf3 = FreeLearn::ScormCreator::ScormFile.create!  :name  => "Hiddencraft",
+	sf3 = FreeLearn::ScormSystem::ScormFile.create!  :name  => "Hiddencraft",
 	                        :description   => "Hiddencraft mini game to learn maths",
 	                        :avatar_url => "/images/hidden-craft.jpg",
 						    :source =>  File.open(File.join(FreeLearn::ScormCreator::Engine.root, 'public/scorm/3/hiddencraft.zip'))
 
 	#Weapons 1 scorm file: Drag and drop texts
-	sf4 = FreeLearn::ScormCreator::ScormFile.create!  :name  => "Ancient Weapons",
+	sf4 = FreeLearn::ScormSystem::ScormFile.create!  :name  => "Ancient Weapons",
 	                        :description   => "Quiz about ancient weapons",
 	                        :avatar_url => "/images/AncientWarWeapons.jpg",
 						    :source =>  File.open(File.join(FreeLearn::ScormCreator::Engine.root, 'public/scorm/4/AncientWeaponsQuiz.zip'))
 
 	#Weapons 2 scorm file: Drag and drop images
-	sf5 = FreeLearn::ScormCreator::ScormFile.create!  :name  => "Weapons Pictures",
+	sf5 = FreeLearn::ScormSystem::ScormFile.create!  :name  => "Weapons Pictures",
 	                        :description   => "Drag and Drop Quiz with weapons pictures",
 	                        :avatar_url => "/images/chuKoNu.jpg",
 						    :source =>  File.open(File.join(FreeLearn::ScormCreator::Engine.root, 'public/scorm/5/WeaponsPicturesQuiz.zip'))
 
 	#Weapons 3 scorm file: Armor hotspot
-	sf6 = FreeLearn::ScormCreator::ScormFile.create!  :name  => "Medieval Armor",
+	sf6 = FreeLearn::ScormSystem::ScormFile.create!  :name  => "Medieval Armor",
 	                        :description   => "Hotspot Quiz with a medieval armor",
 	                        :avatar_url => "/images/medievalArmor.jpg",
 						    :source =>  File.open(File.join(FreeLearn::ScormCreator::Engine.root, 'public/scorm/6/MedievalArmorQuiz.zip'))
 
 	#Weapons 4 scorm file: Sequence Quiz
-	sf7 = FreeLearn::ScormCreator::ScormFile.create!  :name  => "Weapons Timeline",
+	sf7 = FreeLearn::ScormSystem::ScormFile.create!  :name  => "Weapons Timeline",
 	                        :description   => "Weapons Timeline Quiz",
 	                        :avatar_url => "/images/weaponsTimeline.jpg",
 						    :source =>  File.open(File.join(FreeLearn::ScormCreator::Engine.root, 'public/scorm/7/WeaponsTimelineQuiz.zip'))
 
 	#Iberian Lynx Virtual Excursion
-	sf8 = FreeLearn::ScormCreator::ScormFile.create!  :name  => "Iberian Lynx",
+	sf8 = FreeLearn::ScormSystem::ScormFile.create!  :name  => "Iberian Lynx",
 	                        :description   => "A Virtual Excursion about the Iberian Lynx",
 	                        :avatar_url => "/images/IberianLynx.jpg",
 						    :source =>  File.open(File.join(FreeLearn::ScormCreator::Engine.root, 'public/scorm/8/IberianLynx.zip'))
