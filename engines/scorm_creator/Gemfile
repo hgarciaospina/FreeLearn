@@ -15,3 +15,4 @@ gemspec
 
 gem 'free_learn_core', path: "../core"
 gem 'free_learn_scorm_system', path: "../scorm_system"
+gem 'vish_editor', path: "../mini_editor"
