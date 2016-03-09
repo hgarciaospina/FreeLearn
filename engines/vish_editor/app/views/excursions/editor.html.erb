@@ -1,6 +1,19 @@
 <%= render :partial => 'excursions/vish_editor.full' %>
 
 <script>	
+/*
+Vish::Application.config.full_domain
+documents_path :format=> "json"
+excursion_path @excursion, :format=> "json"
+pdfexes_path :format=> "json"
+Vish::Application.config.APP_CONFIG['YouTubeAPIKEY'].nil?
+"/lre/search"
+Vish::Application.config.APP_CONFIG['soundCloudAPIKEY'].nil? 
+Vish::Application.config.APP_CONFIG['YouTubeAPIKEY']
+ Vish::Application.config.APP_CONFIG['EuropeanaAPIKEY']
+raw Vish::Application.config.catalogue["categories"].map{|c| c.capitalize}.to_json
+Vish::Application.config.tagsSettings["maxLength"]
+*/
 	options = {};
 	var configuration = {};
 
@@ -43,11 +56,6 @@
 
 	configuration["presentationSettings"] = true;
 	
-	var tagsSettings = new Object();
-	tagsSettings.maxLength = '<%=Vish::Application.config.tagsSettings["maxLength"]%>';
-	tagsSettings.maxTags = '<%=Vish::Application.config.tagsSettings["maxTags"]%>';
-	tagsSettings.triggerKeys = <%=raw(Vish::Application.config.tagsSettings["triggerKeys"].to_json)%>; 
-	configuration["tagsSettings"] = tagsSettings;
 
 	//WAPP TOKEN API
 	configuration["WAPP_TOKEN_API"] = {
