@@ -2,7 +2,7 @@ module FreeLearn::VishEditor
 	class RoutingController < ApplicationController
 
 		def editor
-			render "excursions/vish_editor"
+			render "excursions/editor"
 		end
 
 		def viewer_full
