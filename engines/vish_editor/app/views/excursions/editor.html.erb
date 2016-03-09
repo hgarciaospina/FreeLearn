@@ -1,5 +1,6 @@
+<iframe>
 <%= render :partial => 'excursions/vish_editor.full' %>
-
+</iframe>
 <script>	
 /*
 Vish::Application.config.full_domain
@@ -22,82 +23,45 @@ Vish::Application.config.tagsSettings["maxLength"]
 	configuration["ImagesPath"] = "/assets/";
 	configuration["StylesheetsPath"] = "/assets/";
 
-	configuration["rootPath"] = "<%= Vish::Application.config.full_domain %>";
+	configuration["rootPath"] = "/todo";
 
 	configuration["Upload"] = true;
-	configuration["uploadImagePath"] = "<%= documents_path :format=> "json"%>";
-	configuration["uploadObjectPath"] = "<%= documents_path :format=> "json"%>";
-	configuration["uploadPresentationPath"] = "<%= excursion_path @excursion, :format=> "json" %>";
-	configuration["uploadPDF2PPath"] = "<%= pdfexes_path :format=> "json"%>";
+	configuration["uploadImagePath"] = "/todo";
+	configuration["uploadObjectPath"] = "/todo";
+	configuration["uploadPresentationPath"] = "/todo";
+	configuration["uploadPDF2PPath"] = "/todo";
 
 	// Sources enabled
-	configuration["ViSH"] = true;
-	configuration["ViSH_instances"] = ["<%= Vish::Application.config.full_domain %>"];
-	configuration["Flickr"] = true;
-	<%unless Vish::Application.config.APP_CONFIG['YouTubeAPIKEY'].nil? %>
-		configuration["Youtube"] = true;
-		configuration["YoutubeAPIKEY"] =  "<%= Vish::Application.config.APP_CONFIG['YouTubeAPIKEY'] %>";
-	<%end%>
-	configuration["Vimeo"] = false;
-	configuration["LRE"] = true;
-	configuration["LRE_path"] = "/lre/search";
-	<%unless Vish::Application.config.APP_CONFIG['soundCloudAPIKEY'].nil? %>
-		configuration["SoundCloud"] = true;
-		configuration["SoundCloudAPIKEY"] =  "<%= Vish::Application.config.APP_CONFIG['soundCloudAPIKEY'] %>";
-	<%end%>
-	<% unless Vish::Application.config.APP_CONFIG['EuropeanaAPIKEY'].nil? %>
-		configuration["Europeana"] = true;
-		configuration["EuropeanaAPIKEY"] =  "<%= Vish::Application.config.APP_CONFIG['EuropeanaAPIKEY'] %>";
-	<% end %>
+	configuration["ViSH"] = false;
+	configuration["ViSH_instances"] = ["/todo"];
+	configuration["Flickr"] = false;
 
-	<% if available_services.include? "Catalogue" %>
-		configuration["catalog"] = <%= raw Vish::Application.config.catalogue["categories"].map{|c| c.capitalize}.to_json %>;
-	<% end %>
+	configuration["Vimeo"] = false;
+	configuration["LRE"] = false;
+	configuration["LRE_path"] = "/lre/search";
+	
 
 	configuration["presentationSettings"] = true;
 	
-
-	//WAPP TOKEN API
-	configuration["WAPP_TOKEN_API"] = {
-		rootURL: "<%=Vish::Application.config.full_domain%>" + "/apis/wapp_token"
-	};
 
 	options["configuration"] = configuration;
 	
 
 	options["developping"] = false;
 
-	<% unless current_subject.admin? %>
-		options["user"] = {
-			name: "<%= current_subject.name %>",
-			id: "<%= Actor.normalize_id(current_subject) %>",
-			token: "<%= form_authenticity_token %>"
-		};
-	<% else %>
-		options["user"] = {
-			name: "<%= @excursion.owner.name %>",
-			id: "<%= Actor.normalize_id(@excursion.owner) %>",
-			token: "<%= form_authenticity_token %>"
-		};
-	<% end %>
 
-	<% unless current_subject.private_student_group_id == nil %>
-		configuration["notify_teacher_path"] = '/private_student_groups/notify_teacher';
-		configuration["classroom_pupil"] = true;
-		options["notified"] = <%= @excursion.notified_teacher.to_s %>
-	<% end %>
+		options["user"] = {
+			name: "name",
+			id: "1",
+			token: ""
+		};
 
-	options["draft"] = <%= @excursion.draft.to_s %>;
+	options["draft"] = "";
 
 	options["lang"] = "<%= I18n.locale.to_s%>";
 
-	<% if current_subject %>
-		<% if @excursion.draft.to_s == "false" %>
-			options["exitURL"]  = "<%= excursion_path(@excursion) %>";
-		<% else %>
-			options["exitURL"]  = "<%= url_for(current_subject) %>";
-		<% end %>
-	<% end %>
+	options["exitURL"]  = "/";
+
 
 	options.addons = [];
 
