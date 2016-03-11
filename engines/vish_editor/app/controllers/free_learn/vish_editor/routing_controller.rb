@@ -3,19 +3,19 @@ module FreeLearn
 		class RoutingController < ApplicationController
 
 			def editor
-				render "excursions/editor"
+				render "/editor"
 			end
 			
 			def editor_full
-				render "excursions/vish_editor.full"
+				render "/vish_editor.full"
 			end
 
 			def viewer_full
-				render "excursions/vish_viewer"
+				render "/vish_viewer"
 			end
 
 			def viewer_scorm
-				render "excursions/vish_viewer_scorm"
+				render "/vish_viewer_scorm"
 			end
 		
 		end

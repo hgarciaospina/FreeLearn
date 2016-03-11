@@ -5,7 +5,7 @@ $:.push File.expand_path("../lib", __FILE__)
 
 # Describe your gem and declare its dependencies:
 Gem::Specification.new do |s|
-  s.name        = "vish_editor"
+  s.name        = "free_learn_vish_editor"
   s.version     = "0.9.2"
   s.authors     = ["abenitoc"]
   s.email       = ["bertocode@gmail.com"]

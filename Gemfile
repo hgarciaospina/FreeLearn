@@ -48,7 +48,7 @@ gem 'pry'
 gem 'free_learn_core', path: 'engines/core'
 gem 'free_learn_scorm_creator', path: 'engines/scorm_creator'
 gem 'free_learn_scorm_system', path:'engines/scorm_system'
-gem 'vish_editor', path: 'engines/vish_editor'
+gem 'free_learn_vish_editor', path: 'engines/vish_editor'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
