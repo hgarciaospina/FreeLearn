@@ -7,15 +7,21 @@ module FreeLearn
 			end
 			
 			def editor_full
-				render "/vish_editor.full"
+				respond_to do |format|
+					format.full { render partial: "/vish_editor.full"}
+				end
 			end
 
 			def viewer_full
-				render "/vish_viewer"
+				respond_to do |format|
+					format.full { render partial: "/vish_viewer.full"}
+				end
 			end
 
 			def viewer_scorm
-				render "/vish_viewer_scorm"
+				respond_to do |format|
+					format.full { render partial: "/vish_viewer_scorm.full"}
+				end
 			end
 		
 		end

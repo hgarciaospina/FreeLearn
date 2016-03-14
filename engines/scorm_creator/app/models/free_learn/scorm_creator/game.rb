@@ -59,7 +59,6 @@ module FreeLearn
 
 				event_ids.each do |event_id|
 					los = []
-					#binding.pry
 					# TODO: Change find_all_by_game_template_event_id notation to RAILS 4 
 					# self.event_mappings.find_all_by_game_template_event_id(event_id)
 
@@ -70,7 +69,6 @@ module FreeLearn
 							los.push(mapping.lo_id);
 						end
 					end
-					#binding.pry
 					event = GameTemplateEvent.find_by_id(event_id)
 					mapping = Hash.new
 					mapping["event_id"] = event.id_in_game
