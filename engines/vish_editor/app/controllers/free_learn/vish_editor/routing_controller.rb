@@ -8,7 +8,7 @@ module FreeLearn
 			
 			def editor_full
 				respond_to do |format|
-					format.full { render partial: "/vish_editor.full"}
+					format.full { render "/veditor.full"}
 				end
 			end
 
