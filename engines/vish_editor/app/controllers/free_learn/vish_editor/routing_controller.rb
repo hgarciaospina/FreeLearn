@@ -6,21 +6,25 @@ module FreeLearn
 				render "/editor"
 			end
 			
+			def new_editor
+				render "/new_editor"
+			end
+
 			def editor_full
 				respond_to do |format|
-					format.full { render "/veditor.full"}
+					format.full { render "/_vish_editor.full", :layout => 'veditor' }
 				end
 			end
 
 			def viewer_full
 				respond_to do |format|
-					format.full { render partial: "/vish_viewer.full"}
+					format.full { render partial: "/vish_viewer.full", :layout => 'veditor'}
 				end
 			end
 
 			def viewer_scorm
 				respond_to do |format|
-					format.full { render partial: "/vish_viewer_scorm.full"}
+					format.full { render partial: "/vish_viewer_scorm.full", :layout => 'veditor'}
 				end
 			end
 		
