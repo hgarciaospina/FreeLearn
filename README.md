@@ -2,7 +2,8 @@
 
 ## ¿What is FreeLearn?
 
-The purpose of this project is to create an education platform where teachers can create courses and we put it inside videogames, mapping the different events of the game, such as opening chests or grabbing a weapon, with the diferent SCOs (Sharable objects contents) of the course created in SCORM format.
+The purpose of this project is to create an education platform where teachers can create courses and place them inside videogames, mapping the different events of the game, such as opening chests or grabbing a weapon, with the diferent SCOs (Sharable objects contents) of the course created, which are bassically the differents activities of the course.
+The expectations are to get student attention easier and soften the learning curve by making the learning proccess an actual game.
 
 Freelearn is a modular project (made by engines) written is Ruby On Rails, that is currently under development.
 
