@@ -24,7 +24,8 @@ module FreeLearn::ScormCreator
       #Get all LOs
       los = [];
       JSON.parse(params[:scorms_ids]).each do |scorm_id|
-        sf = ScormFile.find_by_id(scorm_id)
+        binding.pry
+        sf = FreeLearn::ScormSystem::ScormFile.find_by_id(scorm_id)
         sf.los.each do |lo|
           los.push(lo)
         end
