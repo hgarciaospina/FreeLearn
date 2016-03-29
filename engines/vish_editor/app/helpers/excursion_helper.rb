@@ -1,6 +1,6 @@
 require 'builder'
 
-module ExcursionHelper
+module CourseHelper
 
     def generate_scorm_manifest(version,ejson,excursion,options={})
     version = "2004" unless version.is_a? String and ["12","2004"].include?(version)

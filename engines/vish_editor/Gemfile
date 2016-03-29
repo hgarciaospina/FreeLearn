@@ -15,3 +15,4 @@ gemspec
 #TODO Find the way to make this gem only in the gemspec work, when impoting from git
 gem "scorm", :git => 'git://github.com/abenitoc/scorm.git', :branch => "master"
 gem 'free_learn_core', path: '../core'
+gem 'free_learn_scorm_system', path: '../scorm_system'

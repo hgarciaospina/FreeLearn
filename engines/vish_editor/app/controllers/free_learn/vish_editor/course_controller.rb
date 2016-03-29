@@ -1,10 +1,10 @@
 module FreeLearn
   module VishEditor
-    class VishEditorController < FreeLearn::ApplicationController
+    class CourseController < FreeLearn::ApplicationController
 
     	def save_course
-        binding.pry
-    		excursion = JSON.parse(:json)
+            binding.pry
+    		course = JSON.parse(:json)
     	end
 
     	def export_from_json
