@@ -4,6 +4,6 @@ FreeLearn::Core::Engine.routes.draw do
 		get "editor_full" => "routing#editor_full", :format => :full
 		get "viewer" => "routing#viewer_full"
 		get "viewer_scorm" => "routing#viewer_scorm"
-    post "upload_course" => "routing#save_course"
+    post "upload_course" => "course#save_course"
 	end
 end

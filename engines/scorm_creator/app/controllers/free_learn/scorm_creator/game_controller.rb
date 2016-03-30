@@ -1,6 +1,6 @@
 module FreeLearn::ScormCreator
   class GameController < ApplicationController
-    
+
     def index
       respond_to do |format|
         format.html # index.html.erb
@@ -18,13 +18,12 @@ module FreeLearn::ScormCreator
       gT = GameTemplate.find_by_id(params[:g_template_id]);
 
       name = params[:game][:name] ? params[:game][:name] : gT.name
-      avatar_url = params[:game][:avatar_url] ? params[:game][:avatar_url] : gT.avatar_url    
+      avatar_url = params[:game][:avatar_url] ? params[:game][:avatar_url] : gT.avatar_url
       gameInstance = Game.create! :name=>name, :description=>gT.description, :avatar_url=>avatar_url, :game_template_id=>params[:g_template_id]
 
       #Get all LOs
       los = [];
       JSON.parse(params[:scorms_ids]).each do |scorm_id|
-        binding.pry
         sf = FreeLearn::ScormSystem::ScormFile.find_by_id(scorm_id)
         sf.los.each do |lo|
           los.push(lo)
@@ -42,7 +41,7 @@ module FreeLearn::ScormCreator
       gT.game_template_events.each do |event|
         EventMapping.create! :game_id => gameInstance.id, :game_template_event_id => event.id, :lo_id => -2
       end
-     
+
       # redirect_to "/game"
       redirect_to "/game/"+gameInstance.id.to_s
     end

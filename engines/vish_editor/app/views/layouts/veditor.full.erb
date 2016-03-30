@@ -36,7 +36,7 @@
 
 </html>
 
-<script>  
+<script>
 
   options = {};
   var configuration = {};
@@ -51,7 +51,7 @@
   configuration["Upload"] = true;
   configuration["uploadImagePath"] = "/todo";
   configuration["uploadObjectPath"] = "/todo";
-  configuration["uploadPresentationPath"] = "/todo";
+  configuration["uploadPresentationPath"] = "/upload_course";
   configuration["uploadPDF2PPath"] = "/todo";
 
   // Sources enabled
@@ -62,20 +62,20 @@
   configuration["Vimeo"] = false;
   configuration["LRE"] = false;
   configuration["LRE_path"] = "/lre/search";
-  
+
 
   configuration["presentationSettings"] = true;
-  
+
 
   options["configuration"] = configuration;
-  
+
 
   options["developping"] = false;
 
-
+  <%#binding.pry%>
     options["user"] = {
-      name: "name",
-      id: "1",
+      name: "<%= current_user.email %>",
+      id: "<%= current_user.id %>",
       token: ""
     };
 
@@ -97,5 +97,5 @@
   function start(){
     VISH.Editor.init(options);
   }
-  
+
 </script>

@@ -2,13 +2,17 @@ module FreeLearn
   module VishEditor
     class CourseController < FreeLearn::ApplicationController
 
+      def show
+
+      end
+        #Method to save excursions from vish_editor
     	def save_course
-            binding.pry
-    		course = JSON.parse(:json)
-    	end
+            json_parsed = JSON.parse(params[:excursion][:json])
+            course = Course.new
+            course.json = json_parsed
+            course.save
 
-    	def export_from_json
-
+            render status: :ok
     	end
 
     end

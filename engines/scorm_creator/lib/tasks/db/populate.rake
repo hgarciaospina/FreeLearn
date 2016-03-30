@@ -3,11 +3,14 @@ namespace :db do
   	desc "Create populate data for SCORM into games"
 
   	#copy the scorm files
+  	if Dir["#{FreeLearn::ScormCreator::Engine.root}/public/scorm/*"].any?
+  			system "rm -rf #{FreeLearn::ScormCreator::Engine.root}/public/scorm/*"
+  	end
   	Dir.mkdir "#{FreeLearn::ScormCreator::Engine.root}/public/scorm/1/"
   	FileUtils.cp(File.join(FreeLearn::ScormCreator::Engine.root, 'public/scorm_examples/rabbittakeaway.zip'), File.join(FreeLearn::ScormCreator::Engine.root, 'public/scorm/1/rabbittakeaway.zip'))
-	Dir.mkdir "#{FreeLearn::ScormCreator::Engine.root}/public/scorm/2/"
+		Dir.mkdir "#{FreeLearn::ScormCreator::Engine.root}/public/scorm/2/"
   	FileUtils.cp(File.join(FreeLearn::ScormCreator::Engine.root, 'public/scorm_examples/golf_n_sco.zip'), File.join(FreeLearn::ScormCreator::Engine.root, 'public/scorm/2/golf_n_sco.zip'))
-	Dir.mkdir "#{FreeLearn::ScormCreator::Engine.root}/public/scorm/3/"
+		Dir.mkdir "#{FreeLearn::ScormCreator::Engine.root}/public/scorm/3/"
   	FileUtils.cp(File.join(FreeLearn::ScormCreator::Engine.root, 'public/scorm_examples/hiddencraft.zip'), File.join(FreeLearn::ScormCreator::Engine.root, 'public/scorm/3/hiddencraft.zip'))
   	Dir.mkdir "#{FreeLearn::ScormCreator::Engine.root}/public/scorm/4/"
   	FileUtils.cp(File.join(FreeLearn::ScormCreator::Engine.root, 'public/scorm_examples/AncientWeaponsQuiz.zip'), File.join(FreeLearn::ScormCreator::Engine.root, 'public/scorm/4/AncientWeaponsQuiz.zip'))
@@ -20,7 +23,7 @@ namespace :db do
   	Dir.mkdir "#{FreeLearn::ScormCreator::Engine.root}/public/scorm/8/"
   	FileUtils.cp(File.join(FreeLearn::ScormCreator::Engine.root, 'public/scorm_examples/IberianLynx.zip'), File.join(FreeLearn::ScormCreator::Engine.root, 'public/scorm/8/IberianLynx.zip'))
 
-  	
+
 
   	#first scorm file with its learning object
 	sf1 = FreeLearn::ScormSystem::ScormFile.create!  :name  => "Rabbittakeaway",
