@@ -10,9 +10,16 @@ module FreeLearn
             json_parsed = JSON.parse(params[:excursion][:json])
             course = Course.new
             course.json = json_parsed
-            course.save
+            course.save!
 
-            render status: :ok
+            #TODO: Needs to implement visualization
+            # => json_path
+            # => edit_path
+            render :json => { :url => "/path_to_course",
+                      :uploadPath => "/todo.json",
+                      :editPath => "/edit_todo",
+                      :id => course.id
+                    }
     	end
 
     end
