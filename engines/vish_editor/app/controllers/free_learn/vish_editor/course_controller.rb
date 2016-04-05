@@ -2,16 +2,30 @@ module FreeLearn
   module VishEditor
     class CourseController < FreeLearn::ApplicationController
         
-        def new
-            new! do |format|
+       def new
+            respond_to  do |format|
                 format.html{
-                    redirect_to new_course_path(@course)
+                  redirect_to new_course_path(@course)
+                }
+                format.json{
+                    render :json => {:url => "/course/:id", :uploadPath => "/course/:id", :edit_path => "/course/:id/edit", :id => course.id}
                 }
             end
+       end
+        
+       def create 
+  
+            json_parsed = JSON.parse(params[:excursion][:json])
+            course = Course.new
+            course.json = json_parsed
+            course.save!
+       
+            render :json => {:url => "/course/:id", :uploadPath => "/course/:id", :edit_path => "/course/:id/edit", :id => course.id}
+            
         end
         
         def edit
-            edit! do |format|
+            respond_to do |format|
                 format.html{
                     redirect_to edit_course_path(@course)
                 }
@@ -19,10 +33,13 @@ module FreeLearn
         end
         
         def show
-            show! do |format|
-                format.html{
-                    redirect_to course_path(@course)
-                }
+            course = Course.find(params[:id])
+            unless course == nil
+                respond_to do |format|
+                    format.html{
+                        redirect_to course_path(course)
+                    }
+                end
             end
         end
         
