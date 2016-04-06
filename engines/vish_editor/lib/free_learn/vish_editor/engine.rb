@@ -4,7 +4,7 @@ module FreeLearn
       isolate_namespace VishEditor
 
       paths["app/views"] << "app/views/free_learn/vish_editor"
-
+      
       initializer :append_migrations do |app|
         unless app.root.to_s.match(root.to_s)
           config.paths["db/migrate"].expanded.each do |p|

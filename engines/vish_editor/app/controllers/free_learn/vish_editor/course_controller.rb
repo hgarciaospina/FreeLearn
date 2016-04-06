@@ -33,14 +33,13 @@ module FreeLearn
         end
         
         def show
-            course = Course.find(params[:id])
-            unless course == nil
-                respond_to do |format|
-                    format.html{
-                        redirect_to course_path(course)
-                    }
-                end
+
+            respond_to do |format|
+                format.html
+                format.full{render :layout => "veditor.full"}
+                format.scorm{render :layout => "show.scorm"}
             end
+
         end
         
         
