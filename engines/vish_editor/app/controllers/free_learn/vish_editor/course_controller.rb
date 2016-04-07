@@ -4,9 +4,8 @@ module FreeLearn
         
        def new
             respond_to  do |format|
-                format.html{
-                  redirect_to new_course_path(@course)
-                }
+                format.html
+                format.full{render :layout => "veditor.full"}
                 format.json{
                     render :json => {:url => "/course/:id", :uploadPath => "/course/:id", :edit_path => "/course/:id/edit", :id => course.id}
                 }
@@ -14,9 +13,14 @@ module FreeLearn
        end
         
        def create 
-  
-            json_parsed = JSON.parse(params[:excursion][:json])
+            binding.pry
+            json_parsed = JSON.parse(params[:excursion][:json])json_parsed = JSON.parse(params[:excursion][:json])
             course = Course.new
+            
+            #After Save TODO: Refactor
+            author= User.find(json_parsed["author"]["vishMetadata"]["id"])
+            
+            course.free
             course.json = json_parsed
             course.save!
        
@@ -25,6 +29,7 @@ module FreeLearn
         end
         
         def edit
+            #TODO: put ID
             respond_to do |format|
                 format.html{
                     redirect_to edit_course_path(@course)
@@ -33,7 +38,7 @@ module FreeLearn
         end
         
         def show
-
+            #TODO: put ID
             respond_to do |format|
                 format.html
                 format.full{render :layout => "veditor.full"}
@@ -42,6 +47,9 @@ module FreeLearn
 
         end
         
+        def update
+
+        end
         
         #Method to save excursions from vish_editor
     	def save_course

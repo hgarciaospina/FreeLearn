@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160329110103) do
+ActiveRecord::Schema.define(version: 20160407154058) do
 
   create_table "free_learn_scorm_creator_event_mappings", force: :cascade do |t|
     t.integer  "game_template_event_id"
@@ -91,8 +91,11 @@ ActiveRecord::Schema.define(version: 20160329110103) do
 
   create_table "free_learn_vish_editor_courses", force: :cascade do |t|
     t.text     "json"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
+    t.integer  "free_learn_user_id"
   end
+
+  add_index "free_learn_vish_editor_courses", ["free_learn_user_id"], name: "index_free_learn_vish_editor_courses_on_free_learn_user_id"
 
 end
