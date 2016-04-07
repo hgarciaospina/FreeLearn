@@ -22,6 +22,7 @@ module CourseHelper
 
     end
 
+
     def translate_to_SCORM(version="2004",folderPath,fileName,json,excursion,controller)
       require 'zip'
 

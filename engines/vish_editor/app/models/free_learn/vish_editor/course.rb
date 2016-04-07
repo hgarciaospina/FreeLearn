@@ -15,6 +15,10 @@ module FreeLearn::VishEditor
     json
   end
 
+  def user
+    FreeLearn::User.find(self.free_learn_user_id)
+  end
+
 
 
   end

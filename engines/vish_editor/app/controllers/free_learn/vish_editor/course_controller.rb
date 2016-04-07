@@ -13,14 +13,14 @@ module FreeLearn
        end
         
        def create 
-            binding.pry
-            json_parsed = JSON.parse(params[:excursion][:json])json_parsed = JSON.parse(params[:excursion][:json])
+            json_parsed = JSON.parse(params[:excursion][:json])
             course = Course.new
             
-            #After Save TODO: Refactor
+            #Parse Json and add to ease accessor TODO: add as before_filter
             author= User.find(json_parsed["author"]["vishMetadata"]["id"])
-            
-            course.free
+            course.free_learn_user_id = author.id
+            course.title = json_parsed["title"]
+            course.description = json_parsed["description"]
             course.json = json_parsed
             course.save!
        
