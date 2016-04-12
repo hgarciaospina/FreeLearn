@@ -1,5 +1,5 @@
 <%= render :partial => 'vish_viewer.full' %>
-
+<% @course = FreeLearn::VishEditor::Course.find(params[:id])%>
 <script>
 	options = {};
 	var configuration = {};
@@ -33,7 +33,7 @@
 	<%# if @quiz_session %>
 		//options["quizSessionId"] = "<%#= @quiz_session.id %>";
 	<%# end %>
-	
+
 	//Extra options from parent
 	try {
 		if(typeof window.parent.options != "undefined"){
@@ -55,28 +55,30 @@
 	function start(){
 		var isPreview = false;
 		try {
-			isPreview = window.parent.VISH && 
-						window.parent.VISH.Editor && 
-						(typeof window.parent.VISH.Editor.Preview.getPreview == "function") && 
+			isPreview = window.parent.VISH &&
+						window.parent.VISH.Editor &&
+						(typeof window.parent.VISH.Editor.Preview.getPreview == "function") &&
 						(typeof window.parent.VISH.Editor.Preview.getPreview() != 'undefined') &&
 						(window.parent.VISH.Editor.Preview.getPreview() != null);
 		} catch(exception) {
 			isPreview = false;
 		}
-		
+
 		var myexcursion;
 
 		if(isPreview){
 			options["preview"] = true;
 			myexcursion =  window.parent.VISH.Editor.Preview.getPreview();
 		} else {
+				<%binding.pry%>
 			<% if @course %>
-				myexcursion = <%= raw @course.json %>;
+
+				myexcursion = <%= raw @course.json.to_json %>;
 			<% else %>
 				myexcursion = null;
 			<% end %>
 		}
-			
+
 		VISH.Viewer.init(options , myexcursion);
 	}
 </script>

@@ -1,5 +1,5 @@
 <% @course = FreeLearn::VishEditor::Course.find(params[:id]) %>
-<%content_for :title do %><%= @course.title %> - <%= !@course.user.nil? ? @course.user.email : "" %><% end %> 
+<%content_for :title do %><%= @course.title %> - <%= !@course.user.nil? ? @course.user.email : "" %><% end %>
 <%content_for :description do %><%= t("site.meta_desc.excursion")+ @course.title + ". " + (@course.description ? @course.description : "")  %><% end %>
 <%#content_for :og_image do %><%#= @course.thumbnail_url || "http://" + request.env['HTTP_HOST'] + "/assets/logos/original/excursion-vish.png" || ""%><%# end TODO add name to user%>
 
@@ -12,7 +12,7 @@
   var options = {};
   options["readHashFromParent"] = true;
 </script>
-
+<%binding.pry%>
 <section id="show_items " class="layout_show">
 
   <div class="doc-show">
@@ -25,6 +25,6 @@
 
     </div>
   </div>
-  
+
 </section>
 
