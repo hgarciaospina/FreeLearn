@@ -1,7 +1,7 @@
 module FreeLearn
   module VishEditor
     class CourseController < FreeLearn::ApplicationController
-        
+
        def new
             respond_to  do |format|
                 format.html
@@ -11,11 +11,11 @@ module FreeLearn
                 }
             end
        end
-        
-       def create 
+
+       def create
             json_parsed = JSON.parse(params[:excursion][:json])
             course = Course.new
-            
+
             #Parse Json and add to ease accessor TODO: add as before_filter
             author= User.find(json_parsed["author"]["vishMetadata"]["id"])
             course.free_learn_user_id = author.id
@@ -23,11 +23,11 @@ module FreeLearn
             course.description = json_parsed["description"]
             course.json = json_parsed
             course.save!
-       
+
             render :json => {:url => "/course/:id", :uploadPath => "/course/:id", :edit_path => "/course/:id/edit", :id => course.id}
-            
+
         end
-        
+
         def edit
             #TODO: put ID
             respond_to do |format|
@@ -36,21 +36,21 @@ module FreeLearn
                 }
             end
         end
-        
+
         def show
             #TODO: put ID
             respond_to do |format|
                 format.html
                 format.full{render :layout => "veditor.full"}
-                format.scorm{render :layout => "show.scorm"}
+                format.scorm
             end
 
         end
-        
+
         def update
 
         end
-        
+
         #Method to save excursions from vish_editor
     	def save_course
             json_parsed = JSON.parse(params[:excursion][:json])

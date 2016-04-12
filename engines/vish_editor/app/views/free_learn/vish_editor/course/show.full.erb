@@ -70,9 +70,7 @@
 			options["preview"] = true;
 			myexcursion =  window.parent.VISH.Editor.Preview.getPreview();
 		} else {
-				<%binding.pry%>
 			<% if @course %>
-
 				myexcursion = <%= raw @course.json.to_json %>;
 			<% else %>
 				myexcursion = null;

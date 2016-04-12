@@ -10,16 +10,16 @@
 
 <body onload="start()" style="display: none" class="loaded" id="presentation_iframe">
 
-	<%= render :partial => 'excursions/vish_viewer_scorm.full' %>
+	<%= render :partial => 'course/vish_viewer_scorm.full' %>
 
-	<% unless excursion
-		#Get excursion from database if exists and its published
+	<% unless @course
+		#Get course from database if exists and its published
 		presId = Integer(json["vishMetadata"]["id"]) rescue nil
 		draft = (json["vishMetadata"]["draft"]==="true") rescue true
 		unless presId.blank? or draft
-			excursion = Excursion.find_by_id(presId)
-			if excursion.nil? or excursion.draft
-				excursion = nil
+			@course = FreeLearn::VishEditor::Course.find(presId)
+			if @course.nil? or @course.draft
+				@course = nil
 			end
 		end
 	end %>
@@ -34,44 +34,22 @@
 		configuration["ImagesPath"] = "images/";
 		configuration["StylesheetsPath"] = "stylesheets/";
 
-		// Recommendations API
-		configuration["recommendationsAPI"] = {
-			rootURL: "<%=Vish::Application.config.full_domain%>" + "/excursions/last_slide.json"
-		};
-		
-		//Tracking System
-		<%if Vish::Application.config.trackingSystem %>
-			configuration["TrackingSystemAPIKEY"] = "<%= Vish::Application.config.APP_CONFIG['trackingSystemAPIKEY'] %>";
-			configuration["TrackingSystemAPIURL"] = "<%= Vish::Application.config.APP_CONFIG['trackingSystemAPIURL'] %>";
-		<%end%>
-
-		//LOEP configuration
-		<%unless Vish::Application.config.APP_CONFIG['loep'].nil? or excursion.nil?%>
-			<%loepConfig = Vish::Application.config.APP_CONFIG['loep']%>
-			<%tokenURL = (Vish::Application.config.full_domain + '/loep/session_token.json') %>
-			configuration["loepSettings"] = {
-				tokenURL: '<%=tokenURL%>',
-				domain: '<%=loepConfig["domain"]%>',
-				app: '<%=loepConfig["app_name"]%>',
-				loId: '<%=excursion.activity_object.getGlobalId()%>',
-				evmethod: "wbltses"
-			};
-		<%end%>
 
 		options["configuration"] = configuration;
 
 
 		options["developping"] = false;
-		
+
 		options["scorm"] = true;
 
-		<% if excursion %>
-			options["watermarkURL"] = "<%=excursion_url(excursion)%>";
-		<% else %>
-			options["watermarkURL"] = "<%=Vish::Application.config.full_domain%>";
-		<% end %>
+		//Watermark
+		<%# if @excursion %>
+			//options["watermarkURL"] = "<%#=course_path(@course)%>";
+		<%# else %>
+			//options["watermarkURL"] = "<%= ::Rails.application.config.full_domain %>";
+		<%# end %>
 
-		var presentation = <%= raw json.to_json %>;
+		var presentation = <%= raw @course.json.to_json %>;
 
 		function start(){
 			VISH.Viewer.init(options,presentation);
