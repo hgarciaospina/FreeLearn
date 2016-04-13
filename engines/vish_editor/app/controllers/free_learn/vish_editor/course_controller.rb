@@ -38,11 +38,16 @@ module FreeLearn
         end
 
         def show
-            #TODO: put ID
             respond_to do |format|
                 format.html
                 format.full{render :layout => "veditor.full"}
-                format.scorm
+                format.scorm{
+                    binding.pry
+                      scormVersion = (params["version"].present? and ["12","2004"].include?(params["version"])) ? params["version"] : "2004"
+                      @course.to_scorm(self,scormVersion)
+                      @course.increment_download_count
+                      send_file @course.scormFilePath(scormVersion), :type => 'application/zip', :disposition => 'attachment', :filename => ("scorm" + scormVersion + "-#{@course.id}.zip")
+                }
             end
 
         end
