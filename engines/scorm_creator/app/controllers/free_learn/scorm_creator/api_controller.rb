@@ -14,6 +14,10 @@ module FreeLearn::ScormCreator
 			render "main_views/index"
 		end
 
+		def gallery
+			render "main_views/gallery"
+		end
+
 		def json_game
 			json_params = JSON.parse(params[:json])
 

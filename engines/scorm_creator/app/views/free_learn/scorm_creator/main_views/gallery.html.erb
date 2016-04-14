@@ -1,0 +1,6 @@
+<ul class="list-group">
+
+<% FreeLearn::VishEditor::Game.all.each do |game|%>
+	<li class="list-group-item"><%=game.name%></li>
+<%end%>
+</ul>
