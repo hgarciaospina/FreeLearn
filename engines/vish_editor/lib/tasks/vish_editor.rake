@@ -6,9 +6,12 @@
 # Also rewrite routes
 #
 
+
 #PATHS
-VISH_EDITOR_PLUGIN_PATH = "lib/plugins/vish_editor";
-VISH_EDITOR_PATH = "../vish_editor";
+
+FREELEARN_PATH = Rails.root.to_s
+VISH_EDITOR_PLUGIN_PATH = FREELEARN_PATH + "/engines/vish_editor";
+VISH_EDITOR_PATH = FREELEARN_PATH + "../mini_editor";
 
 # Vish Editor and Vish Viewer files and dirs :
 
@@ -42,13 +45,16 @@ EXCURSION_NAME_ES_PLURAL = ""
 
 # Rake Task
 namespace :vish_editor do
-    
+
   task :build do
+    binding.pry
+=begin
     Rake::Task["vish_editor:prepare"].invoke
     Rake::Task["vish_editor:compile"].invoke
     Rake::Task["vish_editor:cleanCompile"].invoke
     Rake::Task["vish_editor:buildSCORM"].invoke
     Rake::Task["vish_editor:rewritePaths"].invoke
+=end
   end
 
   task :prepare do
@@ -119,7 +125,7 @@ namespace :vish_editor do
     #Copy HTML
     system "sed -n  '/<!-- Copy HTML from here -->/,/<!-- Copy HTML until here -->/p' " + TMP_FOLDER + "/viewer.html > " + VISH_EDITOR_PLUGIN_PATH + "/app/views/excursions/_vish_viewer.full.erb"
     system "sed -n  '/<!-- Copy HTML from here -->/,/<!-- Copy HTML until here -->/p' " + TMP_FOLDER + "/edit.html > " + VISH_EDITOR_PLUGIN_PATH + "/app/views/excursions/_vish_editor.full.erb"
-   
+
     #system "rm -r " + TMP_FOLDER
 
     puts "Task prepare finished"
@@ -146,7 +152,7 @@ namespace :vish_editor do
 
     #CSS files
     puts "Combining CSS"
-   
+
     #Combine css files
     puts "Creating vishViewer.css"
     CSS_VIEWER.collect! {|x| "lib/plugins/vish_editor/app/assets/css_to_compile/all/" + x }
@@ -194,7 +200,7 @@ namespace :vish_editor do
 
     #Copy HTML files to ViSH
     system "cp " + VISH_EDITOR_PLUGIN_PATH + "/app/views/excursions/_vish_viewer.full.erb " + VISH_EDITOR_PLUGIN_PATH + "/app/views/excursions/_vish_viewer_scorm.full.erb"
-    
+
     #Create folders
     system "mkdir -p " + VISH_EDITOR_PLUGIN_PATH + "/app/scorm/images/"
     system "mkdir -p " + VISH_EDITOR_PLUGIN_PATH + "/app/scorm/javascripts/"
@@ -222,14 +228,14 @@ namespace :vish_editor do
     system "cp -r " + VISH_EDITOR_PLUGIN_PATH + "/app/assets/stylesheets/* " + VISH_EDITOR_PLUGIN_PATH + "/app/scorm/stylesheets"
     system "rm " + VISH_EDITOR_PLUGIN_PATH + "/app/scorm/stylesheets/all/*"
     system "cp " + VISH_EDITOR_PLUGIN_PATH + "/app/assets/stylesheets/all/vishViewer.css " + VISH_EDITOR_PLUGIN_PATH + "/app/scorm/stylesheets/all/vishViewer.css"
-    
+
     #Remove unused fonts (font-awesome is only used in VEditor)
     system "rm -r " + VISH_EDITOR_PLUGIN_PATH + "/app/scorm/stylesheets/libs/font-awesome"
 
     #Rewrite paths for SCORM
     system "sed -i 's/\\\/images\\\//images\\\//g' " + VISH_EDITOR_PLUGIN_PATH + "/app/views/excursions/_vish_viewer_scorm.full.erb"
     system "sed -i 's/\\\/images\\\//..\\\/..\\\/images\\\//g' " + VISH_EDITOR_PLUGIN_PATH + "/app/scorm/stylesheets/*/*css"
-    
+
     #Copy files to scorm folder in ViSH Editor
     system "cp -r " + VISH_EDITOR_PLUGIN_PATH + "/app/scorm/* " + VISH_EDITOR_PATH + "/examples/contents/scorm/"
   end
@@ -271,11 +277,11 @@ namespace :vish_editor do
     compiler_options2['--formatting'] = 'PRETTY_PRINT'
     compiler_options2['--js_output_file'] = "vishEditor.js"
     compiler_options2['--warning_level'] = 'QUIET'
-    
+
     files.each do |file|
       puts " > #{file}"
     end
-    
+
     puts ""
     puts "----------------------------------------------------"
     puts "compiling ViSH Editor..."
@@ -293,12 +299,12 @@ namespace :vish_editor do
     compiler_options['--js_output_file'] = "vishViewer.min.js"
     compiler_options2['--js'] = JS_VIEWER.join(' ')
     compiler_options2['--js_output_file'] = "vishViewer.js"
-    
+
     system "java -jar #{JSCOMPILER_JAR_FILE} #{compiler_options.to_a.join(' ')}"
     system "java -jar #{JSCOMPILER_JAR_FILE} #{compiler_options2.to_a.join(' ')}"
     puts "DONE"
     puts "----------------------------------------------------"
- 
+
     puts "compiled #{JS_VIEWER.size} javascript file(s) into vishViewer.js and vishViewer.min.js"
     puts ""
     system "mkdir -p " + VISH_EDITOR_PLUGIN_PATH + "/app/assets/javascripts"
@@ -332,7 +338,7 @@ namespace :vish_editor do
     files.each do |file|
       system "java -jar #{CSSCOMPILER_JAR_FILE} --type css #{file} -o #{file}"
     end
-   
+
     puts "DONE"
     puts "----------------------------------------------------"
     puts "compiled #{files.size} css file(s)"
@@ -340,7 +346,7 @@ namespace :vish_editor do
 
     system "mkdir -p " + VISH_EDITOR_PLUGIN_PATH + "/app/assets/stylesheets/"
     system "mv " + VISH_EDITOR_PLUGIN_PATH + "/app/assets/css_to_compile/* " + VISH_EDITOR_PLUGIN_PATH + "/app/assets/stylesheets/"
-  
+
     #Restore vish_editor.css rails file
     system "cp " + VISH_EDITOR_PATH + "/stylesheets/vish_editor.css " + VISH_EDITOR_PLUGIN_PATH + "/app/assets/stylesheets/vish_editor.css"
   end
@@ -350,7 +356,7 @@ namespace :vish_editor do
   task :download_gcompiler do
     require 'uri'; require 'net/http'; require 'tempfile'; require 'open-uri'
     puts "downloading compiler jar from: #{JSCOMPILER_DOWNLOAD_URI}"
-   
+
     FileUtils.mkdir_p(COMPILER_JAR_PATH)
     writeOut = open(COMPILER_JAR_PATH + "/compiler-latest.zip", "wb")
     writeOut.write(open(JSCOMPILER_DOWNLOAD_URI).read)
@@ -364,7 +370,7 @@ namespace :vish_editor do
   task :download_YUIcompressor do
     require 'uri'; require 'net/http'; require 'tempfile'; require 'open-uri'
     puts "downloading compiler jar from: #{CSSCOMPILER_DOWNLOAD_URI}"
-   
+
     FileUtils.mkdir_p(COMPILER_JAR_PATH)
     writeOut = open(COMPILER_JAR_PATH + "/YUIcompressor.zip", "wb")
     writeOut.write(open(CSSCOMPILER_DOWNLOAD_URI).read)
