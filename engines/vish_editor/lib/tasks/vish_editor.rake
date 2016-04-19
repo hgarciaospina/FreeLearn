@@ -57,14 +57,21 @@ namespace :vish_editor do
   task :prepare do
     puts "Task prepare do start"
     system "rm -rf " + VISH_EDITOR_PLUGIN_PATH + "/app/assets/*"
-    system "rm -rf " + VISH_EDITOR_PLUGIN_PATH + "/app/views/*"
+
+    #Delete just files neccesary TODO: Refactor in another folder just these files
+    #system "rm -rf " + VISH_EDITOR_PLUGIN_PATH + "/app/views/*"
+    system "rm -rf " + VISH_EDITOR_PLUGIN_PATH + "/app/views/free_learn/vish_editor/course/_vish_viewer.full.erb"
+    system "rm -rf " + VISH_EDITOR_PLUGIN_PATH + "/app/views/free_learn/vish_editor/course/_vish_editor.full.erb"
+    system "rm -rf " + VISH_EDITOR_PLUGIN_PATH + "/app/views/free_learn/vish_editor/course/_vish_viewer_scorm.full.erb"
+
+
     system "rm -rf " + VISH_EDITOR_PLUGIN_PATH + "/app/scorm/*"
     system "rm -rf " + VISH_EDITOR_PATH + "/examples/contents/scorm/images"
     system "rm -rf " + VISH_EDITOR_PATH + "/examples/contents/scorm/javascripts"
     system "rm -rf " + VISH_EDITOR_PATH + "/examples/contents/scorm/stylesheets"
 
     system "mkdir -p " + VISH_EDITOR_PLUGIN_PATH + "/app/assets/"
-    system "mkdir -p " + VISH_EDITOR_PLUGIN_PATH + "/app/views/excursions"
+    #system "mkdir -p " + VISH_EDITOR_PLUGIN_PATH + "/app/views/excursions"
     system "cp -r " + VISH_EDITOR_PATH + "/images/ " + VISH_EDITOR_PLUGIN_PATH + "/app/assets/"
     system "cp -r " + VISH_EDITOR_PATH + "/stylesheets/ " + VISH_EDITOR_PLUGIN_PATH + "/app/assets/css_to_compile/"
     system "cp -r " + VISH_EDITOR_PATH + "/js/ " + VISH_EDITOR_PLUGIN_PATH + "/app/assets/js_to_compile/"
