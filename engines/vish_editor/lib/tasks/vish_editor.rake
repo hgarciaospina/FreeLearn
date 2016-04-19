@@ -47,14 +47,11 @@ EXCURSION_NAME_ES_PLURAL = ""
 namespace :vish_editor do
 
   task :build do
-    binding.pry
-=begin
     Rake::Task["vish_editor:prepare"].invoke
     Rake::Task["vish_editor:compile"].invoke
     Rake::Task["vish_editor:cleanCompile"].invoke
     Rake::Task["vish_editor:buildSCORM"].invoke
     Rake::Task["vish_editor:rewritePaths"].invoke
-=end
   end
 
   task :prepare do
