@@ -11,7 +11,7 @@
 
 FREELEARN_PATH = Rails.root.to_s
 VISH_EDITOR_PLUGIN_PATH = FREELEARN_PATH + "/engines/vish_editor";
-VISH_EDITOR_PATH = FREELEARN_PATH + "../mini_editor";
+VISH_EDITOR_PATH = FREELEARN_PATH + "/../mini_editor";
 
 # Vish Editor and Vish Viewer files and dirs :
 
@@ -127,8 +127,8 @@ namespace :vish_editor do
 
 
     #Copy HTML
-    system "sed -n  '/<!-- Copy HTML from here -->/,/<!-- Copy HTML until here -->/p' " + TMP_FOLDER + "/viewer.html > " + VISH_EDITOR_PLUGIN_PATH + "/app/views/excursions/_vish_viewer.full.erb"
-    system "sed -n  '/<!-- Copy HTML from here -->/,/<!-- Copy HTML until here -->/p' " + TMP_FOLDER + "/edit.html > " + VISH_EDITOR_PLUGIN_PATH + "/app/views/excursions/_vish_editor.full.erb"
+    system "sed -n  '/<!-- Copy HTML from here -->/,/<!-- Copy HTML until here -->/p' " + TMP_FOLDER + "/viewer.html > " + VISH_EDITOR_PLUGIN_PATH + "/app/views/free_learn/vish_editor/course/_vish_viewer.full.erb"
+    system "sed -n  '/<!-- Copy HTML from here -->/,/<!-- Copy HTML until here -->/p' " + TMP_FOLDER + "/edit.html > " + VISH_EDITOR_PLUGIN_PATH + "/app/views/free_learn/vish_editor/course/_vish_editor.full.erb"
 
     #system "rm -r " + TMP_FOLDER
 
@@ -203,7 +203,7 @@ namespace :vish_editor do
     system "rm -rf " + VISH_EDITOR_PLUGIN_PATH + "/app/scorm/*"
 
     #Copy HTML files to ViSH
-    system "cp " + VISH_EDITOR_PLUGIN_PATH + "/app/views/excursions/_vish_viewer.full.erb " + VISH_EDITOR_PLUGIN_PATH + "/app/views/excursions/_vish_viewer_scorm.full.erb"
+    system "cp " + VISH_EDITOR_PLUGIN_PATH + "/app/views/free_learn/vish_editor/course/_vish_viewer.full.erb " + VISH_EDITOR_PLUGIN_PATH + "/app/views/free_learn/vish_editor/course/_vish_viewer_scorm.full.erb"
 
     #Create folders
     system "mkdir -p " + VISH_EDITOR_PLUGIN_PATH + "/app/scorm/images/"
@@ -237,7 +237,7 @@ namespace :vish_editor do
     system "rm -r " + VISH_EDITOR_PLUGIN_PATH + "/app/scorm/stylesheets/libs/font-awesome"
 
     #Rewrite paths for SCORM
-    system "sed -i 's/\\\/images\\\//images\\\//g' " + VISH_EDITOR_PLUGIN_PATH + "/app/views/excursions/_vish_viewer_scorm.full.erb"
+    system "sed -i 's/\\\/images\\\//images\\\//g' " + VISH_EDITOR_PLUGIN_PATH + "/app/views/free_learn/vish_editor/course/_vish_viewer_scorm.full.erb"
     system "sed -i 's/\\\/images\\\//..\\\/..\\\/images\\\//g' " + VISH_EDITOR_PLUGIN_PATH + "/app/scorm/stylesheets/*/*css"
 
     #Copy files to scorm folder in ViSH Editor
@@ -246,8 +246,8 @@ namespace :vish_editor do
 
   task :rewritePaths do
     #Rewrite HTML paths
-    system "sed -i 's/\\\/images\\\//\\\/assets\\\//g' " + VISH_EDITOR_PLUGIN_PATH + "/app/views/excursions/_vish_viewer.full.erb"
-    system "sed -i 's/\\\/images\\\//\\\/assets\\\//g' " + VISH_EDITOR_PLUGIN_PATH + "/app/views/excursions/_vish_editor.full.erb"
+    system "sed -i 's/\\\/images\\\//\\\/assets\\\//g' " + VISH_EDITOR_PLUGIN_PATH + "/app/views/free_learn/vish_editor/course/_vish_viewer.full.erb"
+    system "sed -i 's/\\\/images\\\//\\\/assets\\\//g' " + VISH_EDITOR_PLUGIN_PATH + "/app/views/free_learn/vish_editor/course/_vish_editor.full.erb"
 
     #Rewrite CSS paths
     system "sed -i 's/..\\\/..\\\/images/\\\/assets/g' " + VISH_EDITOR_PLUGIN_PATH + "/app/assets/stylesheets/*/*css"
