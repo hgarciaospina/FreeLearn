@@ -42,9 +42,9 @@ module FreeLearn
                 format.html
                 format.full{render :layout => "veditor.full"}
                 format.scorm{
-                    binding.pry
+                      @course = Course.find(params[:id])
                       scormVersion = (params["version"].present? and ["12","2004"].include?(params["version"])) ? params["version"] : "2004"
-                      @course.to_scorm(self,scormVersion)
+                      @course.to_scorm(self)
                       @course.increment_download_count
                       send_file @course.scormFilePath(scormVersion), :type => 'application/zip', :disposition => 'attachment', :filename => ("scorm" + scormVersion + "-#{@course.id}.zip")
                 }

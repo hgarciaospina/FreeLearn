@@ -19,13 +19,27 @@ module FreeLearn::VishEditor
     FreeLearn::User.find(self.free_learn_user_id)
   end
 
-  def to_scorm(controller,version="2004")
-    if self.scorm_needs_generate(version)
+  def to_scorm(controller)
+    if self.scorm_needs_generate
       folderPath = Course.scormFolderPath(version)
       fileName = self.id
       json = JSON(self.json)
       Course.createSCORM(version,folderPath,fileName,json,self,controller)
       self.update_column(((version=="12") ? :scorm12_timestamp : :scorm2004_timestamp), Time.now)
+    end
+  end
+
+   def scorm_needs_generate
+    if self.scorm_timestamp.nil? or self.updated_at > self.scorm_timestamp or !File.exist?("#{Rails.root}/public/scorm/excursions/#{self.id}.zip")
+      return true
+    else
+      return false
+    end
+  end
+
+  def remove_scorm
+    if File.exist?("#{Rails.root}/public/scorm/excursions/#{self.id}.zip")
+      File.delete("#{Rails.root}/public/scorm/excursions/#{self.id}.zip") 
     end
   end
 
