@@ -1,6 +1,6 @@
 <ul class="list-group">
 
-<% FreeLearn::VishEditor::Game.all.each do |game|%>
-	<li class="list-group-item"><%=game.name%></li>
+<% FreeLearn::ScormCreator::Game.all.each do |game|%>
+	<a href="<%= free_learn.game_path(game)%>"><li class="list-group-item"><%=game.name%></li></a>
 <%end%>
 </ul>
