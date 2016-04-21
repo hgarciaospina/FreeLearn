@@ -22,7 +22,8 @@ Gem::Specification.new do |s|
   s.add_dependency "free_learn_scorm_system"
   s.add_dependency "deface"
   s.add_dependency "paperclip"
-  
+  s.add_dependency "rubyzip"
+
 end
 
 

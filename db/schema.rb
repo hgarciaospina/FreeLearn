@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160420124353) do
+ActiveRecord::Schema.define(version: 20160421103607) do
 
   create_table "free_learn_scorm_creator_event_mappings", force: :cascade do |t|
     t.integer  "game_template_event_id"

@@ -4,8 +4,8 @@ class CreateFreeLearnVishEditorCourses < ActiveRecord::Migration
     	t.belongs_to :free_learn_user, index: true
   		t.text :title
   		t.text :description
-      	t.text :json
-      	t.timestamps null: false
+      t.text :json
+      t.timestamps null: false
     end
   end
 end

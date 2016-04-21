@@ -47,6 +47,7 @@ PATH
       free_learn_scorm_system
       paperclip
       rails (~> 4.2.3)
+      rubyzip
 
 GEM
   remote: https://rubygems.org/

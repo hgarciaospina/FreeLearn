@@ -4,8 +4,7 @@ module FreeLearn::VishEditor
   class Course < ActiveRecord::Base
   #Faker of Excursion as model for VISH Editor Engine
     validates_presence_of :json
-      serialize :json, JSON
-
+    serialize :json, JSON
 
   ####################
   ## Model methods
@@ -19,7 +18,15 @@ module FreeLearn::VishEditor
     FreeLearn::User.find(self.free_learn_user_id)
   end
 
-  def to_scorm(controller)
+  ####################
+  # SCORM MANAGEMENT #
+  ####################
+
+  def self.scormFolderPath(version)
+    return "#{Rails.root}/public/scorm/" + version + "/courses/"
+  end
+
+  def to_scorm(controller,version="2004")
     if self.scorm_needs_generate
       folderPath = Course.scormFolderPath(version)
       fileName = self.id
@@ -30,7 +37,7 @@ module FreeLearn::VishEditor
   end
 
    def scorm_needs_generate
-    if self.scorm_timestamp.nil? or self.updated_at > self.scorm_timestamp or !File.exist?("#{Rails.root}/public/scorm/excursions/#{self.id}.zip")
+    if self.scorm_timestamp.nil? or self.updated_at > self.scorm_timestamp or !File.exist?("#{Rails.root}/public/scorm/course/#{self.id}.zip")
       return true
     else
       return false
@@ -38,8 +45,8 @@ module FreeLearn::VishEditor
   end
 
   def remove_scorm
-    if File.exist?("#{Rails.root}/public/scorm/excursions/#{self.id}.zip")
-      File.delete("#{Rails.root}/public/scorm/excursions/#{self.id}.zip") 
+    if File.exist?("#{Rails.root}/public/scorm/courses/#{self.id}.zip")
+      File.delete("#{Rails.root}/public/scorm/courses/#{self.id}.zip")
     end
   end
 
@@ -53,6 +60,7 @@ module FreeLearn::VishEditor
 
       #Add manifest, main HTML file and additional files
       Zip::OutputStream.open(t.path) do |zos|
+        binding.pry
         xml_manifest = Course.generate_scorm_manifest(version,json,excursion)
         zos.put_next_entry("imsmanifest.xml")
         zos.print xml_manifest.target!()
@@ -83,17 +91,17 @@ module FreeLearn::VishEditor
       end
 
       #Copy SCORM assets (image, javascript and css files)
-      dir = "#{Rails.root}/lib/plugins/vish_editor/app/scorm"
+      dir = "#{FreeLearn::VishEditor::Engine.root.to_s}/lib/plugins/vish_editor/app/scorm"
       zip_folder(t.path,dir)
 
       #Add theme
-      themesPath = "#{Rails.root}/lib/plugins/vish_editor/app/assets/images/themes/"
+      themesPath = "#{FreeLearn::VishEditor::Engine.root.to_s}/lib/plugins/vish_editor/app/assets/images/themes/"
       theme = "theme1" #Default theme
       if json["theme"] and File.exists?(themesPath + json["theme"])
         theme = json["theme"]
       end
       #Copy excursion theme
-      zip_folder(t.path,"#{Rails.root}/lib/plugins/vish_editor/app/assets",themesPath + theme)
+      zip_folder(t.path,"#{FreeLearn::VishEditor::Engine.root.to_s}/lib/plugins/vish_editor/app/assets",themesPath + theme)
 
       t.close
     end
@@ -105,9 +113,6 @@ module FreeLearn::VishEditor
     scormTimestam.nil? or self.updated_at > scormTimestam or !File.exist?(self.scormFilePath(version))
   end
 
-  ## ## ## ## ## ## ## ## ## ## ## ## ##
-
-  ## ## ## ## ## ## ## ## ## ## ## ## ##
 
   def self.generate_scorm_manifest(version,ejson,course,options={})
     version = "2004" unless version.is_a? String and ["12","2004"].include?(version)
