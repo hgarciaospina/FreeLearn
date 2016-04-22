@@ -94,9 +94,10 @@ ActiveRecord::Schema.define(version: 20160421103607) do
     t.text     "title"
     t.text     "description"
     t.text     "json"
-    t.datetime "created_at",         null: false
-    t.datetime "updated_at",         null: false
-    t.datetime "scorm_timestamp"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.datetime "scorm12_timestamp"
+    t.datetime "scorm2004_timestamp"
   end
 
   add_index "free_learn_vish_editor_courses", ["free_learn_user_id"], name: "index_free_learn_vish_editor_courses_on_free_learn_user_id"
