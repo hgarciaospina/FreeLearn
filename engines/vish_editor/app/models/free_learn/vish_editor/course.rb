@@ -14,6 +14,22 @@ module FreeLearn::VishEditor
       json
     end
 
+    def self.zip_folder(zipFilePath,root,dir=nil)
+      dir = root unless dir
+
+      folderNames = []
+      fileNames = []
+
+      Dir.entries(dir).reject{|i| i.start_with?(".")}.each do |itemName|
+        itemPath = "#{dir}/#{itemName}"
+        if File.directory?(itemPath)
+          folderNames << itemName
+        elsif File.file?(itemPath)
+          fileNames << itemName
+        end
+      end
+    end
+
     def user
       FreeLearn::User.find(self.free_learn_user_id)
     end
@@ -21,6 +37,10 @@ module FreeLearn::VishEditor
     ####################
     # SCORM MANAGEMENT #
     ####################
+
+    def scormFilePath(version)
+      Course.scormFolderPath(version) + "#{self.id}.zip"
+    end
 
     def self.scormFolderPath(version)
       return "#{Rails.root}/public/scorm/" + version + "/courses/"
@@ -88,17 +108,17 @@ module FreeLearn::VishEditor
       end
 
       #Copy SCORM assets (image, javascript and css files)
-      dir = "#{FreeLearn::VishEditor::Engine.root.to_s}/vish_editor/app/scorm"
+      dir = "#{FreeLearn::VishEditor::Engine.root.to_s}/app/scorm"
       zip_folder(t.path,dir)
 
       #Add theme
-      themesPath = "#{FreeLearn::VishEditor::Engine.root.to_s}/vish_editor/app/assets/images/themes/"
+      themesPath = "#{FreeLearn::VishEditor::Engine.root.to_s}/app/assets/images/themes/"
       theme = "theme1" #Default theme
       if json["theme"] and File.exists?(themesPath + json["theme"])
         theme = json["theme"]
       end
       #Copy excursion theme
-      zip_folder(t.path,"#{FreeLearn::VishEditor::Engine.root.to_s}/lib/plugins/vish_editor/app/assets",themesPath + theme)
+      zip_folder(t.path,"#{FreeLearn::VishEditor::Engine.root.to_s}/app/assets",themesPath + theme)
 
       t.close
     end
@@ -169,7 +189,7 @@ module FreeLearn::VishEditor
           myxml.schema("ADL SCORM")
           myxml.schemaversion(manifestContent["schemaVersion"])
           #Add LOM metadata
-          Excursion.generate_LOM_metadata(ejson,excursion,{:target => myxml, :id => lomIdentifier, :LOMschema => (options[:LOMschema]) ? options[:LOMschema] : "custom", :scormVersion => version})
+          Course.generate_LOM_metadata(ejson,course,{:target => myxml, :id => lomIdentifier, :LOMschema => (options[:LOMschema]) ? options[:LOMschema] : "custom", :scormVersion => version})
         end
 
         myxml.organizations('default'=>"defaultOrganization") do
@@ -227,10 +247,110 @@ module FreeLearn::VishEditor
     ## LOM Metadata
     ####################
 
+  def self.readableContext(context, _LOMschema)
+    case _LOMschema
+    when "ODS"
+      #ODS LOM Extension
+      #According to ODS, context has to be one of ["primary education", "secondary education", "informal context"]
+      case context
+      when "preschool", "pEducation", "primary education", "school"
+        return "primary education"
+      when "sEducation", "higher education", "university"
+        return "secondary education"
+      when "training", "other"
+        return "informal context"
+      else
+        return nil
+      end
+    when "ViSH"
+      #ViSH LOM extension
+      case context
+      when "unspecified"
+        return "Unspecified"
+      when "preschool"
+        return "Preschool Education"
+      when "pEducation"
+        return "Primary Education"
+      when "sEducation"
+        return "Secondary Education"
+      when "higher education"
+        return "Higher Education"
+      when "training"
+        return "Professional Training"
+      when "other"
+        return "Other"
+      else
+        return context
+      end
+    else
+      #Strict LOM mode. Extensions are not allowed
+      case context
+      when "unspecified"
+        return nil
+      when "preschool"
+      when "pEducation"
+      when "sEducation"
+        return "school"
+      when "higher education"
+        return "higher education"
+      when "training"
+        return "training"
+      else
+        return "other"
+      end
+    end
+  end
+
+  def self.getLearningResourceType(lreType, _LOMschema)
+    case _LOMschema
+    when "ODS"
+      #ODS LOM Extension
+      #According to ODS, the Learning REsources type has to be one of this:
+      allowedLREtypes = ["application","assessment","blog","broadcast","case study","courses","demonstration","drill and practice","educational game","educational scenario","learning scenario","pedagogical scenario","enquiry-oriented activity","exercise","experiment","glossaries","guide","learning pathways","lecture","lesson plan","open activity","other","presentation","project","reference","role play","simulation","social media","textbook","tool","website","wiki","audio","data","image","text","video"]
+    else
+      allowedLREtypes = ["exercise","simulation","questionnaire","diagram","figure","graph","index","slide","table","narrative text","exam","experiment","problem statement","self assessment","lecture"]
+    end
+
+    if allowedLREtypes.include? lreType
+      return lreType
+    else
+      return nil
+    end
+  end
+
+  def self.generateVCard(fullName)
+    return "BEGIN:VCARD&#xD;VERSION:3.0&#xD;N:"+fullName+"&#xD;FN:"+fullName+"&#xD;END:VCARD"
+  end
+
+  def self.getLOMLoLanguage(language, _LOMschema)
+    #List of language codes according to ISO-639:1988
+    # lanCodes = ["aa","ab","af","am","ar","as","ay","az","ba","be","bg","bh","bi","bn","bo","br","ca","co","cs","cy","da","de","dz","el","en","eo","es","et","eu","fa","fi","fj","fo","fr","fy","ga","gd","gl","gn","gu","gv","ha","he","hi","hr","hu","hy","ia","id","ie","ik","is","it","iu","ja","jw","ka","kk","kl","km","kn","ko","ks","ku","kw","ky","la","lb","ln","lo","lt","lv","mg","mi","mk","ml","mn","mo","mr","ms","mt","my","na","ne","nl","no","oc","om","or","pa","pl","ps","pt","qu","rm","rn","ro","ru","rw","sa","sd","se","sg","sh","si","sk","sl","sm","sn","so","sq","sr","ss","st","su","sv","sw","ta","te","tg","th","ti","tk","tl","tn","to","tr","ts","tt","tw","ug","uk","ur","uz","vi","vo","wo","xh","yi","yo","za","zh","zu"]
+    lanCodesMin = I18n.available_locales.map{|i| i.to_s}
+    lanCodesMin.concat(["it","pt"]).uniq!
+
+    case _LOMschema
+    when "ODS"
+      #ODS requires language, and admits blank language.
+      if language.nil? or language == "independent" or !lanCodesMin.include?(language)
+        return "none"
+      end
+    else
+      #When language=nil, no language attribute is provided
+      if language.nil? or language == "independent" or !lanCodesMin.include?(language)
+        return nil
+      end
+    end
+
+    #It is included in the lanCodes array
+    return language
+  end
+
+
+
     # Metadata based on LOM (Learning Object Metadata) standard
     # LOM final draft: http://ltsc.ieee.org/wg12/files/LOM_1484_12_1_v1_Final_Draft.pdf
 
-    def self.generate_LOM_metadata(ejson, excursion, options={})
+    def self.generate_LOM_metadata(ejson, course, options={})
       _LOMschema = "custom"
 
       supportedLOMSchemas = ["custom","loose","ODS","ViSH"]
@@ -294,18 +414,18 @@ module FreeLearn::VishEditor
         end
 
         #Excursion instance
-        excursionInstance = nil
-        if excursion
-          excursionInstance = excursion
+        courseInstance = nil
+        if course
+          courseInstance = course
         elsif ejson["vishMetadata"] and ejson["vishMetadata"]["id"]
-          excursionInstance = Excursion.find_by_id(ejson["vishMetadata"]["id"])
-          excursionInstance = nil unless excursionInstance.public?
+          courseInstance = Course.find_by_id(ejson["vishMetadata"]["id"])
+          courseInstance = nil unless courseInstance.public?
         end
 
         #Location
         loLocation = nil
-        unless excursionInstance.nil?
-          loLocation = Rails.application.routes.url_helpers.excursion_url(:id => excursionInstance.id) if excursionInstance.draft == false
+        unless courseInstance.nil?
+          loLocation =  FreeLearn::Core::Engine.routes.url_helpers.course_url(course.id)
         end
 
         #Language (LO language and metadata language)
@@ -321,14 +441,14 @@ module FreeLearn::VishEditor
         authorName = nil
         if ejson["author"] and ejson["author"]["name"]
           authorName = ejson["author"]["name"]
-        elsif (!excursion.nil? and !excursion.author.nil? and !excursion.author.name.nil?)
-          authorName = excursion.author.name
+        elsif (!course.nil? and !course.user.nil? and !course.user.email.nil?)
+          authorName = course.user.email
         end
 
         # loDate
         # According to ISO 8601 (e.g. 2014-06-23)
-        if excursion
-          loDate = excursion.updated_at
+        if course
+          loDate = course.updated_at
         else
           loDate = Time.now
         end
@@ -454,10 +574,10 @@ module FreeLearn::VishEditor
         end
 
         myxml.metaMetadata do
-          unless excursionInstance.nil?
+          unless courseInstance.nil?
             myxml.identifier do
               myxml.catalog("URI")
-              myxml.entry(Rails.application.routes.url_helpers.excursion_url(:id => excursionInstance.id) + "/metadata.xml")
+              myxml.entry( FreeLearn::Core::Engine.routes.url_helpers.course_url(course.id) + "/metadata.xml")
             end
           end
           unless authorName.nil?
@@ -604,69 +724,9 @@ module FreeLearn::VishEditor
             unless ejson["license"].nil? or ejson["license"]["name"].blank?
               license = "License: '" + ejson["license"]["name"] + "'. "
             end
-            myxml.string(license + "For additional information or questions regarding copyright, distribution and reproduction, visit " + Vish::Application.config.full_domain + "/terms_of_use .", :language=> metadataLanguage)
           end
         end
 
-        #Annotations (include comments if any).
-        unless excursionInstance.nil?
-          comments = excursionInstance.post_activity.comments
-          unless comments.blank?
-            comments.map{|commentActivity| commentActivity.activity_objects.first}.reject{|c| c.nil? or c.description.blank?}.first(30).each do |comment|
-              myxml.annotation do
-                unless comment.author.nil? or comment.author.name.blank?
-                  myxml.entity(generateVCard(comment.author.name))
-                end
-                unless comment.created_at.nil?
-                  myxml.date do
-                    myxml.dateTime(comment.created_at.strftime("%Y-%m-%d").to_s)
-                  end
-                end
-                myxml.description do
-                  myxml.string(comment.description)
-                end
-              end
-            end
-          end
-        end
-
-        #Classification (include categories of the ViSH catalogue if any)
-        if Vish::Application.config.APP_CONFIG["services"].include?("Catalogue")
-          if ejson["tags"] && ejson["tags"].kind_of?(Array)
-            categoryKeywords = Vish::Application.config.catalogue["category_keywords"]
-            catalogueKeywords = categoryKeywords.select{|k,v| v.is_a? Array and (v & ejson["tags"]).length > 1}.map{|k,v| k}
-            if catalogueKeywords.length > 0
-              myxml.classification do
-                myxml.purpose do
-                  myxml.source("LOMv1.0")
-                  myxml.value("discipline")
-                end
-                catalogueKeywords.each do |catalogueCategory|
-                  myxml.taxonPath do
-                    myxml.source do
-                      myxml.string("ViSH", :language => metadataLanguage)
-                    end
-                    myxml.taxon do
-                      tagRecord = ActsAsTaggableOn::Tag.find_by_name(catalogueCategory)
-                      unless tagRecord.nil?
-                        myxml.id(tagRecord.id.to_s)
-                      end
-                      myxml.entry do
-                        myxml.string(catalogueCategory, :language => metadataLanguage)
-                      end
-                    end
-                  end
-                end
-                catalogueKeywords.each do |catalogueCategory|
-                  myxml.keyword do
-                    myxml.string(catalogueCategory, :language => metadataLanguage)
-                  end
-                end
-              end
-            end
-
-          end
-        end
 
       end
 
