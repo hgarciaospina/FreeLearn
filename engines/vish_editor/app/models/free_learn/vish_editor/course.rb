@@ -28,6 +28,21 @@ module FreeLearn::VishEditor
           fileNames << itemName
         end
       end
+
+    folderNames.each do |subFolderName|
+      zip_folder(zipFilePath,root,"#{dir}/#{subFolderName}")
+    end
+
+    #Files
+    if fileNames.length > 0
+      Zip::File.open(zipFilePath, Zip::File::CREATE) { |zipfile|
+        fileNames.each do |fileName|
+          filePathInZip = String.new("#{dir}/#{fileName}").sub(root + "/","")
+          zipfile.add(filePathInZip,"#{dir}/#{fileName}")
+        end
+      }
+    end
+
     end
 
     def user
