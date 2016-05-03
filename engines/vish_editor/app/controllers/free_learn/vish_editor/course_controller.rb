@@ -7,7 +7,7 @@ module FreeLearn
                 format.html
                 format.full{render :layout => "veditor.full"}
                 format.json{
-                    render :json => {:url => "/course/:id", :uploadPath => "/course/:id", :edit_path => "/course/:id/edit", :id => course.id}
+                  render :json => {:url => "/course/:id", :uploadPath => "/course/:id", :edit_path => "/course/:id/edit", :id => course.id}
                 }
             end
        end
@@ -27,6 +27,9 @@ module FreeLearn
             render :json => {:url => "/course/:id", :uploadPath => "/course/:id", :edit_path => "/course/:id/edit", :id => course.id}
 
         end
+
+        #TODO: update
+        def 
 
         def edit
             #TODO: put ID
