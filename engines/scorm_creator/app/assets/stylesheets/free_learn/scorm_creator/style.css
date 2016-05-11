@@ -7,10 +7,51 @@ a, a:focus {
    outline: none;
 }
 
-input::-moz-focus-inner { 
-  border: 0; 
+input::-moz-focus-inner {
+  border: 0;
 }
 
+.panel{
+  height:100px;
+  width:auto;
+  margin-top: -19px;
+  margin-bottom: 5px;
+}
+.panel-img, .panel-body, .panel-tick {
+    float: left;
+    margin: 0 10px;
+}
+.panel-tick{
+  font-size:25px;
+  margin-top: 7%;
+  color: green;
+}
+.non-checked{
+  display:none;
+}
+.panel-img{
+  width: 70px;
+  margin:10px;
+  margin-left:15px;
+}
+.panel-body{
+  width:60%;
+  height:100px;
+  overflow-y: hidden;
+  padding-top: 5px;
+}
+.panel-body p{
+  float: left;
+  margin: 0;
+  font-size: medium;
+}
+.scorm_list{
+  width: 45%;
+  margin-left: 50%;
+  overflow-y: hidden;
+  overflow: auto;
+  height: 500px;
+}
 
 /*
  * SGAME CSS
@@ -32,11 +73,11 @@ input::-moz-focus-inner {
 }
 
 .tool {
-  width: 1100px;
+  width: auto;
   margin-left: auto;
   margin-right: auto;
   margin-top: 10px;
-  height: 637px;
+  height: auto;
 }
 
 .game {
@@ -89,8 +130,7 @@ input::-moz-focus-inner {
 }
 
 .data{
-  margin-top: 15px;
-  height: 300px;
+  height: 200px;
   text-align: center;
 }
 
@@ -287,6 +327,7 @@ margin: 30px;
 
 p.createButton{
   margin-top: 14px;
+  box-sizing: content-box;
 }
 
 iframe#game{

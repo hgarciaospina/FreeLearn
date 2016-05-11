@@ -1,13 +1,13 @@
 CarrouselWrapper = (function($,undefined){
-	
+
 	//Available Options: rows,callback,rowItems,scrollItems,styleClass
-	
+
 	var createCarrousel = function(containerId,options){
 		//Necessary params
 		if(!containerId){
 			return;
 		}
-		
+
 		//Default values
 		var rows = 1;
 		var rowItems = 3;
@@ -20,7 +20,7 @@ CarrouselWrapper = (function($,undefined){
 		var pagination = true;
 		var sortable = false;
 		var afterCreateCarruselFunction = null;
-		
+
 		//Read options
 		if(options){
 			if(options['rows']){
@@ -61,39 +61,39 @@ CarrouselWrapper = (function($,undefined){
 
 		//Define intern variables
 		var multipleRow = (rows>1);
-		
+
 		var carrouselClass = "";
 		if(styleClass){
 			carrouselClass = "_" + styleClass;
 		}
-		
+
 		if(!scrollItems){
 			scrollItems = rowItems;
 		}
-			
+
 		if(multipleRow){
 			var rowClass = "multiple_row" + carrouselClass;
 		} else {
 			var rowClass = "single_row" + carrouselClass;
-		}		
-			
+		}
+
 		//Wrapper main div with a image carousel class container.
 		var wrapperDiv = $("#" + containerId);
 		wrapperDiv.attr("class","image_carousel image_carousel_"+rowClass);
 		wrapperDiv.removeAttr("id");
-		
+
 		var mainDiv = document.createElement('div');
 		$(mainDiv).html($(wrapperDiv).html());
 		$(wrapperDiv).html("");
 		mainDiv.setAttribute('id', containerId);
-			
+
 		//Creating elements
 		var clearFix = document.createElement('div');
 		clearFix.setAttribute('class', "clearfix");
-		
+
 		var button_prev = document.createElement('a');
 		var button_next = document.createElement('a');
-		
+
 		button_prev.setAttribute('class', "prev");
 		button_next.setAttribute('class', "next");
 		$(button_prev).addClass("prev_" + rowClass);
@@ -104,34 +104,34 @@ CarrouselWrapper = (function($,undefined){
 		button_next.setAttribute('id', "carrousel_next" + containerId);
 		$(button_prev).html("<span>prev</span>");
 		$(button_next).html("<span>next</span>");
-			
-		     		 
+
+
 		$(wrapperDiv).append(clearFix);
 		$(wrapperDiv).append(button_prev);
 		$(wrapperDiv).append(button_next);
-		
+
 		if(pagination){
 			var paginationDiv = document.createElement('div');
 			paginationDiv.setAttribute('class','pagination pagination_' + rowClass);
 			paginationDiv.setAttribute('id','carrousel_pag' + containerId);
 			$(wrapperDiv).append(paginationDiv);
 		}
-					 
+
 		//Element stylesheet
 		$(mainDiv).children().addClass("carrousel_element_" + rowClass);
-		
+
 		$(mainDiv).children().each(function(index,value){
 			$(value).children().addClass("carrousel_element_" + rowClass);
 		});
-		
-		
+
+
 		//Callbacks events
 		if ((callback)&&(typeof callback == "function")) {
 			$(mainDiv).children().click(function(event){
 				callback(event);
 			});
 		}
-			
+
 		if (multipleRow) {
 			_applyMultipleRows(containerId, wrapperDiv, mainDiv, rows, rowItems, scrollItems, rowClass, width);
 		} else {
@@ -143,12 +143,12 @@ CarrouselWrapper = (function($,undefined){
 			} else {
 				var start = 0;
 			}
-			
+
 			_setMainCarrousel(containerId,containerId, rows,[],rowItems,scrollItems,width,start, function(){
 				if(pagination){
 					_forceShowPagination(containerId);
 				}
-		
+
 				if(sortable){
 					$("#" + containerId).sortable();
 				}
@@ -159,11 +159,11 @@ CarrouselWrapper = (function($,undefined){
 				}
 			});
 		}
-			
+
 		return;
 	}
 
-	
+
 	var _applyMultipleRows = function(containerId,wrapperDiv,mainDiv,rows,rowItems,scrollItems,rowClass,width){
 
 		var synchronizeIds = [];
@@ -178,13 +178,13 @@ CarrouselWrapper = (function($,undefined){
 				synchronizeIds.push(mainDiv.id + "_row" + i)
 			}
 		}
-			
+
 		//Divide children into the different divs.
 		$(mainDiv).children().each(function(index,value){
 			$(window[mainDiv.id + "_row" + index%rows  ]).append(value)
 		});
-			
-			
+
+
 		//Add divs to the wrapper and invoke carrousel Plugin
 		for (i=rows-1;i>=0;i--) {
 			$(wrapperDiv).prepend(window[mainDiv.id + "_row" + i ])
@@ -211,7 +211,7 @@ CarrouselWrapper = (function($,undefined){
 			items           : scrollItems,
 			fx              : "scroll",
 			duration        : 1000,
-			timeoutDuration : 2000                
+			timeoutDuration : 2000
 			},
 			items : {
 			  visible    : {
@@ -219,7 +219,7 @@ CarrouselWrapper = (function($,undefined){
 			      max : rowItems
 			    }
 			}
-		}); 
+		});
 	}
 
 
@@ -238,7 +238,7 @@ CarrouselWrapper = (function($,undefined){
 				items           : scrollItems,
 				//fx              : "scroll",
 				duration        : 1000,
-				timeoutDuration : 2000                
+				timeoutDuration : 2000
 			},
 			items       : {
 				visible   : {
@@ -256,9 +256,9 @@ CarrouselWrapper = (function($,undefined){
 				key     : "right"
 			},
 			pagination  : "#carrousel_pag"  + widgetsId,
-			onCreate    : afterCreateCarruselFunction      
-		});  
-			
+			onCreate    : afterCreateCarruselFunction
+		});
+
 		if(synchronizeIds){
 			$(synchronizeIds).each(function(index,value){
 		  		$("#" + id).trigger("configuration", ["synchronise", "#" + value]);
@@ -267,8 +267,8 @@ CarrouselWrapper = (function($,undefined){
 
 		$("#" + id).attr("rows",rows)
 	}
-	
-	
+
+
 	var cleanCarrousel = function(containerId){
 		//Remove content
 		$("#" + containerId).html("");
@@ -286,7 +286,7 @@ CarrouselWrapper = (function($,undefined){
 			_cleanOneRowCarrousel(containerId);
 		}
 	}
-  
+
 	var _cleanOneRowCarrousel = function(containerId){
 		var carrouselWrapper = $("#" + containerId).parent().parent();
 		if($(carrouselWrapper).hasClass('image_carousel')){
@@ -295,7 +295,7 @@ CarrouselWrapper = (function($,undefined){
 			$(carrouselWrapper).attr("id",containerId)
 		}
 	}
-	
+
 	var _forceShowPagination = function(containerId){
 		var parent = $("#" + containerId).parent().parent();
 		if ($(parent).hasClass("image_carousel")){
@@ -309,7 +309,7 @@ CarrouselWrapper = (function($,undefined){
 		}
 		$("#" + carrouselDivId).trigger("slideTo", element);
 	}
-  
+
 	var advanceCarrousel = function(carrouselDivId,no){
 		$("#" + carrouselDivId).trigger("next", no);
 	}

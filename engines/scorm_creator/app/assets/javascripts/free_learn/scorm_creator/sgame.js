@@ -8,13 +8,13 @@ SGAME_WEB = (function($,undefined){
 	current_scorm_files = [];
 
 	var games_carrousel_id = "games_carrousel";
-	var sf_carrousel_id = "lo_carrousel";
+	//var sf_carrousel_id = "lo_carrousel";
 
 	var gallery = false;
 
 	var init = function (){
 		_createFancybox();
-		_requestScormFiles(_createScormFilesCarrousel);
+		_requestScormFiles(_createScormFilesList);
 		_requestGameTemplates(_createGameCarrousel);
 		_loadEvents();
 	}
@@ -69,6 +69,7 @@ SGAME_WEB = (function($,undefined){
 	var _createGalleryCarrousel = function(games){
 		var carrouselImages = [];
 		var carrouselImagesTitles = [];
+		console.log(carrouselImages);
 		$.each(games, function(i, game) {
 			var myImg = $("<img itemId="+game.id+" src="+game.avatar_url+" />");
 			carrouselImages.push($(myImg)[0]);
@@ -104,22 +105,65 @@ SGAME_WEB = (function($,undefined){
 
 	/* sfs is an array with scorm_files
 	*/
-	var _createScormFilesCarrousel = function(sfs){
-		var carrouselImages = [];
-		var carrouselImagesTitles = [];
-		carrouselImages.push($("<img itemId='-1' src='/assets/add_lo.png'/>")[0]);
-		carrouselImagesTitles.push("Upload");
-		$.each(sfs, function(i, lo) {
-			if(lo.avatar_url==""){
-				lo.avatar_url = "https://www.servage.net/blog/wp-content/uploads/2012/01/zip.gif";
-			}
-			var myImg = $("<img itemId="+lo.id+" src="+lo.avatar_url+" />");
-			carrouselImages.push($(myImg)[0]);
-			carrouselImagesTitles.push(lo.name);
-			catalog.sfs[lo.id] = lo;
-		});
-		CarrouselWrapper.loadImagesOnCarrouselOrder(carrouselImages,_onSFImagesLoaded,sf_carrousel_id,carrouselImagesTitles);
+	var _createScormFilesList = function(sfs){
+		var listDiv = $(".scorm_list .list-group");
+		_createImageList(sfs,listDiv);
+		console.log(sfs);
+
 	}
+
+	var _createImageList = function(resourceList,listDiv){
+
+		for (var n = 0; n<resourceList.length;n++){
+
+			var li = $(document.createElement('li'));
+
+			//panel default
+			var element = $(document.createElement('div')).attr("class", "panel panel-default").attr("id",resourceList[n].id);
+
+			//image
+			var image_panel = $(document.createElement('div')).attr("class","panel-img");
+			var img = $('<img />',{src: resourceList[n].avatar_url,width: 75,height:75});
+			image_panel.append(img);
+
+			var name_panel = $(document.createElement('div')).attr("class", "panel-body");
+			var name = $(document.createElement('p')).text(resourceList[n].name + ": ");
+			var description = $(document.createElement('p')).text(resourceList[n].description);
+			name_panel.append(name)
+			name_panel.append(description);
+
+
+			var tick_panel = $(document.createElement('div')).attr("class", "panel-tick");
+			var tick = $(document.createElement('span')).attr("class", "glyphicon glyphicon-ok non-checked").attr("aria-hidden", "true");
+
+			tick_panel.append(tick);
+
+			element.append(image_panel)
+			element.append(name_panel)
+			element.append(tick_panel);
+			element.click(function(){
+				_listItemChecks($(this));
+				//TODO: onSFSelected
+				_onSFSelected(this);
+			});
+			li.append(element);
+
+			listDiv.append(li);
+
+		}
+	};
+
+	var _listItemChecks = function(element){
+				var tick= element.find(".panel-tick span");
+				if(tick.is(':visible')){
+					tick.hide();
+					element.removeClass("selected");
+
+				}else{
+					tick.show();
+					element.addClass("selected");
+				}
+	};
 
 	var _onSFImagesLoaded = function(){
 		$("#" + sf_carrousel_id).show();
@@ -147,7 +191,7 @@ SGAME_WEB = (function($,undefined){
 					scorms_info = scorms_info + " " + current_scorm_files[i].name;
 				};
 				$("#g_template_info").html(current_game.name);
-				$("#scorms_info").html(scorms_info);	
+				$("#scorms_info").html(scorms_info);
 				$("#game_fancybox_link").click();
 			}
 	 	});
@@ -161,8 +205,8 @@ SGAME_WEB = (function($,undefined){
 			$("#scorms_ids").val(JSON.stringify(scorm_ids_array));
 		 	$("#g_template_id").val(current_game.id);
 		 	$("#create_form").submit();
-	 	});	
-			
+	 	});
+
 	 };
 
 	/**
@@ -225,7 +269,7 @@ SGAME_WEB = (function($,undefined){
 		});
 	}
 
-			 
+
 
 	/**
 	 * Callbacks
