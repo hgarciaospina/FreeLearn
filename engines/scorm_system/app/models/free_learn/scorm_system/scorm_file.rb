@@ -8,7 +8,7 @@ module FreeLearn
       has_many :los, :dependent => :destroy
       has_attached_file :source,
       					:url  => ":rails_root/public/scorm/:id/:basename.:extension",
-                      	:path => ":rails_root/engines/scorm_creator/public/scorm/:id/:basename.:extension"
+                :path => ":rails_root/engines/scorm_creator/public/scorm/:id/:basename.:extension"
                         #TODO: source path is not associating correctly
     	
       after_save :extract_scorm_file

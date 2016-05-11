@@ -13,6 +13,8 @@ module FreeLearn
 			end
 		end
 
+		config.APP_CONFIG = YAML::load_file(File.open(root.join("config/config.yml")))[Rails.env]
+
 	  end
 	end
 end
