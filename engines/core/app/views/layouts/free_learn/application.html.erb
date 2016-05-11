@@ -10,7 +10,7 @@
 		<%= stylesheet_link_tag    "free_learn/scorm_creator/application", media: "all" %>
   		<%= javascript_include_tag "free_learn/scorm_creator/application" %>
 	<% end %>
-	
+
 	<%= csrf_meta_tags %>
 
 </head>
@@ -26,7 +26,7 @@
 						<li data-freelearn-hook="main_nav"  class="<%= active(free_learn.root_path) %>">
 							<%= link_to 'Home', free_learn.root_path %>
 						</li>
-						
+
 						<li class="<%= active(free_learn.edit_user_registration_path) %>">
 							<%= link_to 'My Account', free_learn.edit_user_registration_path %>
 						</li>
@@ -45,13 +45,15 @@
 			<% end %>
 		</div>
 	</nav>
+	<div class='jumbotron'>
 	<div class='container' role='main'>
 		<% flash.each do |key, value| %>
 			<div class="<%= flash_class(key.to_sym) %>"><%= value %></div>
 		<% end %>
-		<div class='jumbotron'>
+
 			<%= yield %>
-		</div>
+
+	</div>
 	</div>
 </body>
 </html>

@@ -1,5 +1,5 @@
 var catalog = {};
-
+//TODO create fancybox not working
 SGAME_WEB = (function($,undefined){
 	catalog.games = {};
 	catalog.sfs = {};
@@ -55,7 +55,7 @@ SGAME_WEB = (function($,undefined){
 	var _createGameCarrousel = function(games){
 		var carrouselImages = [];
 		var carrouselImagesTitles = [];
-		carrouselImages.push($("<img itemId='-1' src='/assets/add_game.png'/>")[0]);
+
 		carrouselImagesTitles.push("Upload");
 		$.each(games, function(i, game) {
 			var myImg = $("<img itemId="+game.id+" src="+game.avatar_url+" />");
@@ -108,7 +108,7 @@ SGAME_WEB = (function($,undefined){
 	var _createScormFilesList = function(sfs){
 		var listDiv = $(".scorm_list .list-group");
 		_createImageList(sfs,listDiv);
-		console.log(sfs);
+		catalog.sfs = sfs;
 
 	}
 
@@ -298,15 +298,18 @@ SGAME_WEB = (function($,undefined){
 	}
 
 	var _onSFSelected = function(event){
-		var itemid = $(event.target).attr("itemid");
+
+		var itemid = $(event).attr("id");
 		if(itemid!==undefined){
 			var id = parseInt(itemid);
 			if(id===-1){
 				_triggerFacyboxToUploadNewLO();
 				return;
 			}
+
 			var sf = catalog.sfs[id];
 			_addSF(sf);
+
 		}
 	}
 
@@ -348,7 +351,7 @@ SGAME_WEB = (function($,undefined){
 			return;
 		}
 		current_scorm_files.push(sf);
-
+		/*
 		var scos_ids = sf.scos_ids;
 		var assets_ids = sf.assets_ids;
 		var all_ids = scos_ids.concat(assets_ids);
@@ -381,6 +384,7 @@ SGAME_WEB = (function($,undefined){
 	 		 _removeSF(catalog.sfs[id]);
 	 		 $(li).remove();
 		});
+		*/
 	};
 
 	//receives an array of ids of the los to show
