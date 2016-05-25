@@ -44,17 +44,31 @@
 		//configuration["catalog"] = <%#= raw Vish::Application.config.catalogue["categories"].map{|c| c.capitalize}.to_json %>;
 	<%# end %>
 
-	configuration["presentationSettings"] = true;
+	configuration["presentationSettings"] = false;
+	configuration["tagsSettings"] = {maxLength: 20, maxTags: 8, triggerKeys: ['enter', 'space', 'comma', 'tab']};	
+	configuration["catalog"] = ["Art", "Astronomy", "Biology", "Chemistry", "Citizenship", "Classical Languages", "Cross Curricular Education", "Computer Science", "General Culture", "Economics", "Education", "Electronics", "Environmental Education", "Ethics", "Foreign Languages", "Geography", "Geology", "Health Education", "History", "Home Economics", "Literature", "Law", "Mathematics", "Music", "Natural Sciences", "Philosophy", "Physical Education", "Physics", "Politics", "Psychology", "Religion", "Social Sciences", "Software Engineering", "Technology", "Telecommunications"];
 
-	// var tagsSettings = new Object();
-	// tagsSettings.maxLength = '<%#=Vish::Application.config.tagsSettings["maxLength"]%>';
-	// tagsSettings.maxTags = '<%#=Vish::Application.config.tagsSettings["maxTags"]%>';
-	// tagsSettings.triggerKeys = <%#=raw(Vish::Application.config.tagsSettings["triggerKeys"].to_json)%>;     	
-	// configuration["tagsSettings"] = tagsSettings;
-	
+
+	////////////////////
+	// Apply a custom VE theme
+	///////////////////	
+	configuration["ve_theme"] = {
+		 	"cssPath": "free_learn/free_learn_theme.css",
+		 	"callback": function(V,options,presentation){
+		 		$("#presentation_details_logo").attr("src", "/assets/logos/free_learn_icon.png");
+		 		$("#advanced_tabs .js_tabs_asettings").remove();
+		 		$("#tab_presentations_repo").remove();
+		 		$("#toolbar_publish_wrapper").remove();
+				//V.Utils.showDialog({"text": "VE Theme was loaded", "buttons": [{"text": "Ok", "callback": $.fancybox.close}]});
+		 	}
+		 };
+
 	options["configuration"] = configuration;
 
 
+	/////////////////////
+	// Options to initialize ViSH Editor
+	/////////////////////
 	options["developping"] = false;
 
 	options["user"] = {
@@ -80,4 +94,5 @@
 	function start(){
 		VISH.Editor.init(options);
 	}
+
 </script>
