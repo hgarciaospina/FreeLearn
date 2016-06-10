@@ -56,7 +56,7 @@ SGAME_WEB = (function($,undefined){
 		var carrouselImages = [];
 		var carrouselImagesTitles = [];
 
-		carrouselImagesTitles.push("Upload");
+		//carrouselImagesTitles.push("Upload");
 		$.each(games, function(i, game) {
 			var myImg = $("<img itemId="+game.id+" src="+game.avatar_url+" />");
 			carrouselImages.push($(myImg)[0]);

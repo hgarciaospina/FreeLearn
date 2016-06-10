@@ -13,6 +13,8 @@ module FreeLearn
        end
 
        def create
+            binding.pry
+
             json_parsed = JSON.parse(params[:excursion][:json])
             course = Course.new
 
@@ -24,8 +26,13 @@ module FreeLearn
             course.json = json_parsed
             course.save!
 
-            render :json => {:url => "/course/:id", :uploadPath => "/course/:id", :edit_path => "/course/:id/edit", :id => course.id}
+            if params[:draft] == true
+              render :json => {:url => "/course/:id", :uploadPath => "/course/:id", :edit_path => "/course/:id/edit", :id => course.id}
+            else
+              convertToScormFile(course)
+            end
 
+        
         end
 
         #TODO: update
@@ -76,6 +83,12 @@ module FreeLearn
                     }
     	end
 
+      private
+
+      def convertToScormFile(course)
+        course.to_scorm
+      end
+      
     end
   end
 end
