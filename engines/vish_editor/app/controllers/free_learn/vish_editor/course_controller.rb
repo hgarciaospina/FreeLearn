@@ -13,8 +13,6 @@ module FreeLearn
        end
 
        def create
-            binding.pry
-
             json_parsed = JSON.parse(params[:excursion][:json])
             course = Course.new
 
@@ -26,23 +24,21 @@ module FreeLearn
             course.json = json_parsed
             course.save!
 
-            if params[:draft] == true
-              render :json => {:url => "/course/:id", :uploadPath => "/course/:id", :edit_path => "/course/:id/edit", :id => course.id}
-            else
-              convertToScormFile(course)
-            end
-
+            #if params[:draft] == "true"
+            render :json => {:url => "/course/" + course.id.to_s, :uploadPath => "/course/" + course.id.to_s, :editPath => "/course/" + course.id.to_s+"/edit", :id => course.id}
+            #else
+            #  binding.pry
+            #end
         
         end
 
-        #TODO: update
-        def 
-
         def edit
-            #TODO: put ID
+            @course = Course.find(params[:id])
             respond_to do |format|
-                format.html{
-                    redirect_to edit_course_path(@course)
+                format.full{ render :layout => "veditor.full" }
+
+                format.json{
+                  render :json => {:url => "/course/:id", :uploadPath => "/course/:id", :edit_path => "/course/:id/edit", :id => course.id}
                 }
             end
         end
@@ -63,7 +59,14 @@ module FreeLearn
         end
 
         def update
+          course = Course.find(params[:id])
+          json_parsed = JSON.parse(params[:excursion][:json])
 
+          course.title = json_parsed["title"]
+          course.description = json_parsed["description"]
+          course.json = json_parsed
+          course.save!
+          render :json => {:url => "/course/" + course.id.to_s, :uploadPath => "/course/" + course.id.to_s, :editPath => "/course/" + course.id.to_s+"/edit", :id => course.id}
         end
 
         #Method to save excursions from vish_editor

@@ -9,86 +9,85 @@
 	configuration["ImagesPath"] = "/assets/";
 	configuration["StylesheetsPath"] = "/assets/";
 
-	configuration["rootPath"] = "<%= Vish::Application.config.full_domain %>";
+	configuration["rootPath"] = "<%= ::Rails.application.config.full_domain %>";
 
 	configuration["Upload"] = true;
-	configuration["uploadImagePath"] = "<%= documents_path :format=> "json"%>";
-	configuration["uploadObjectPath"] = "<%= documents_path :format=> "json"%>";
-	configuration["uploadPresentationPath"] = "<%= excursion_path @excursion, :format=> "json" %>";
-	configuration["uploadPDF2PPath"] = "<%= pdfexes_path :format=> "json"%>";
+	configuration["uploadImagePath"] = "<%= image_path :format=> "json" || ""%>";
+	configuration["uploadObjectPath"] = "<%= image_path :format=> "json" || ""%>";
+	configuration["uploadPresentationPath"] = "<%= free_learn.course_path(@course) %>";
+	configuration["uploadPDF2PPath"] = "";
 
 	// Sources enabled
-	configuration["ViSH"] = true;
-	configuration["ViSH_instances"] = ["<%= Vish::Application.config.full_domain %>"];
-	configuration["Flickr"] = true;
-	<%unless Vish::Application.config.APP_CONFIG['YouTubeAPIKEY'].nil? %>
-		configuration["Youtube"] = true;
-		configuration["YoutubeAPIKEY"] =  "<%= Vish::Application.config.APP_CONFIG['YouTubeAPIKEY'] %>";
-	<%end%>
-	configuration["Vimeo"] = false;
-	configuration["LRE"] = true;
-	configuration["LRE_path"] = "/lre/search";
-	<%unless Vish::Application.config.APP_CONFIG['soundCloudAPIKEY'].nil? %>
-		configuration["SoundCloud"] = true;
-		configuration["SoundCloudAPIKEY"] =  "<%= Vish::Application.config.APP_CONFIG['soundCloudAPIKEY'] %>";
-	<%end%>
-
-	<% if available_services.include? "Catalogue" %>
-		configuration["catalog"] = <%= raw Vish::Application.config.catalogue["categories"].map{|c| c.capitalize}.to_json %>;
-	<% end %>
-
-	configuration["presentationSettings"] = true;
+	configuration["ViSH"] = false;
+	configuration["ViSH_instances"] = ["<%= ::Rails.application.config.full_domain %>"];
+	configuration["Flickr"] = false;
 	
-	var tagsSettings = new Object();
-	tagsSettings.maxLength = '<%=Vish::Application.config.tagsSettings["maxLength"]%>';
-	tagsSettings.maxTags = '<%=Vish::Application.config.tagsSettings["maxTags"]%>';
-	tagsSettings.triggerKeys = <%=raw(Vish::Application.config.tagsSettings["triggerKeys"].to_json)%>; 
-	configuration["tagsSettings"] = tagsSettings;
+	//Youtube API
+	<%# unless Vish::Application.config.APP_CONFIG['YouTubeAPIKEY'].nil? %>
+		// configuration["Youtube"] = true;
+		// configuration["YoutubeAPIKEY"] =  "<%#= Vish::Application.config.APP_CONFIG['YouTubeAPIKEY'] %>";
+	<%# end %>
 
-	//WAPP TOKEN API
-	configuration["WAPP_TOKEN_API"] = {
-		rootURL: "<%=Vish::Application.config.full_domain%>" + "/apis/wapp_token"
-	};
+	//Vimeo API
+	configuration["Vimeo"] = false;
+	configuration["LRE"] = false;
+	configuration["LRE_path"] = "";
+
+	//Soundcloud API
+	<%# unless Vish::Application.config.APP_CONFIG['soundCloudAPIKEY'].nil? %>
+		// configuration["SoundCloud"] = true;
+		// configuration["SoundCloudAPIKEY"] =  "<%#= Vish::Application.config.APP_CONFIG['soundCloudAPIKEY'] %>";
+	<%# end %>
+
+	//Catalog API
+	<%# if available_services.include? "Catalogue" %>
+		//configuration["catalog"] = <%#= raw Vish::Application.config.catalogue["categories"].map{|c| c.capitalize}.to_json %>;
+	<%# end %>
+
+	configuration["presentationSettings"] = false;
+	configuration["tagsSettings"] = {maxLength: 20, maxTags: 8, triggerKeys: ['enter', 'space', 'comma', 'tab']};	
+	configuration["catalog"] = ["Art", "Astronomy", "Biology", "Chemistry", "Citizenship", "Classical Languages", "Cross Curricular Education", "Computer Science", "General Culture", "Economics", "Education", "Electronics", "Environmental Education", "Ethics", "Foreign Languages", "Geography", "Geology", "Health Education", "History", "Home Economics", "Literature", "Law", "Mathematics", "Music", "Natural Sciences", "Philosophy", "Physical Education", "Physics", "Politics", "Psychology", "Religion", "Social Sciences", "Software Engineering", "Technology", "Telecommunications"];
+
+
+	////////////////////
+	// Apply a custom VE theme
+	///////////////////	
+	configuration["ve_theme"] = {
+		 	"cssPath": "free_learn/free_learn_theme.css",
+		 	"callback": function(V,options,presentation){
+		 		$("#presentation_details_logo").attr("src", "/assets/logos/free_learn_icon.png");
+		 		$("#advanced_tabs .js_tabs_asettings").remove();
+		 		$("#tab_presentations_repo").remove();
+		 		$("#toolbar_publish_wrapper").remove();
+
+		 		$("#menu .publishMenuOption").attr("action", "onAddToLOCatalog");
+
+				//V.Utils.showDialog({"text": "VE Theme was loaded", "buttons": [{"text": "Ok", "callback": $.fancybox.close}]});
+		 	}
+		 };
 
 	options["configuration"] = configuration;
-	
 
+
+	/////////////////////
+	// Options to initialize ViSH Editor
+	/////////////////////
 	options["developping"] = false;
 
-	<% unless current_subject.admin? %>
-		options["user"] = {
-			name: "<%= current_subject.name %>",
-			id: "<%= Actor.normalize_id(current_subject) %>",
-			token: "<%= form_authenticity_token %>"
-		};
-	<% else %>
-		options["user"] = {
-			name: "<%= @excursion.owner.name %>",
-			id: "<%= Actor.normalize_id(@excursion.owner) %>",
-			token: "<%= form_authenticity_token %>"
-		};
-	<% end %>
+	options["user"] = {
+		name: "<%= current_user.email %>",
+		id: "<%= current_user.id %>",
+		token: "" //TODO: Check tokens
+	};
 
-	<% unless current_subject.private_student_group_id == nil %>
-		configuration["notify_teacher_path"] = '/private_student_groups/notify_teacher';
-		configuration["classroom_pupil"] = true;
-		options["notified"] = <%= @excursion.notified_teacher.to_s %>
-	<% end %>
-
-	options["draft"] = <%= @excursion.draft.to_s %>;
+	options["draft"] = true;
 
 	options["lang"] = "<%= I18n.locale.to_s%>";
 
-	<% if current_subject %>
-		<% if @excursion.draft.to_s == "false" %>
-			options["exitURL"]  = "<%= excursion_path(@excursion) %>";
-		<% else %>
-			options["exitURL"]  = "<%= url_for(current_subject) %>";
-		<% end %>
-	<% end %>
+	options["exitURL"]  = "<%= free_learn.root_path %>";
+
 
 	options.addons = [];
-
 	var addon = new Object();
 	addon.target = "Both";
 	addon.id = "IframeMessenger";
@@ -96,6 +95,6 @@
 	options.addons.push(addon);
 
 	function start(){
-		VISH.Editor.init(options, <%= raw @excursion.to_json%> );
+		VISH.Editor.init(options, <%= raw @course.json.to_json %> );
 	}
 </script>
