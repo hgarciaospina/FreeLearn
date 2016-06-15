@@ -508,9 +508,9 @@ module FreeLearn::VishEditor
             if ejson["description"]
               myxml.string(ejson["description"], loLanOpts)
             elsif ejson["title"]
-              myxml.string(ejson["title"] + ". A Virtual Excursion provided by " + Vish::Application.config.full_domain + ".", :language=> metadataLanguage)
+              myxml.string(ejson["title"] + ". A Virtual Excursion provided by FreeLearn")
             else
-              myxml.string("Virtual Excursion provided by " + Vish::Application.config.full_domain + ".", :language=> metadataLanguage)
+              myxml.string("Virtual Excursion provided by FreeLearn")
             end
           end
           if ejson["tags"] && ejson["tags"].kind_of?(Array)

@@ -24,11 +24,11 @@ module FreeLearn
             course.json = json_parsed
             course.save!
 
-            #if params[:draft] == "true"
-            render :json => {:url => "/course/" + course.id.to_s, :uploadPath => "/course/" + course.id.to_s, :editPath => "/course/" + course.id.to_s+"/edit", :id => course.id}
-            #else
-            #  binding.pry
-            #end
+            if params[:draft] == "true"
+              render :json => {:url => "/course/" + course.id.to_s, :uploadPath => "/course/" + course.id.to_s, :editPath => "/course/" + course.id.to_s+"/edit", :id => course.id}
+            else
+              convertToScormFile(course)
+            end
         
         end
 
@@ -66,7 +66,13 @@ module FreeLearn
           course.description = json_parsed["description"]
           course.json = json_parsed
           course.save!
-          render :json => {:url => "/course/" + course.id.to_s, :uploadPath => "/course/" + course.id.to_s, :editPath => "/course/" + course.id.to_s+"/edit", :id => course.id}
+          
+          if params[:draft] == "true"
+            render :json => {:url => "/course/" + course.id.to_s, :uploadPath => "/course/" + course.id.to_s, :editPath => "/course/" + course.id.to_s+"/edit", :id => course.id}
+          else
+            convertToScormFile(course)
+          end
+        
         end
 
         #Method to save excursions from vish_editor
@@ -89,7 +95,8 @@ module FreeLearn
       private
 
       def convertToScormFile(course)
-        course.to_scorm
+        @course = course
+        @course.to_scorm(self)
       end
       
     end
