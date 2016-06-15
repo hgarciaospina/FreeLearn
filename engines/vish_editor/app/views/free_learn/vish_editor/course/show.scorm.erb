@@ -48,7 +48,7 @@
 		<%# else %>
 			//options["watermarkURL"] = "<%= ::Rails.application.config.full_domain %>";
 		<%# end %>
-		<%binding.pry%>
+
 		var presentation = <%= raw @course.json.to_json %>;
 
 		function start(){

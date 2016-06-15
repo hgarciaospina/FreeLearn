@@ -94,8 +94,9 @@ ActiveRecord::Schema.define(version: 20160421103607) do
     t.text     "title"
     t.text     "description"
     t.text     "json"
-    t.datetime "created_at",          null: false
-    t.datetime "updated_at",          null: false
+    t.boolean  "published",           default: false
+    t.datetime "created_at",                          null: false
+    t.datetime "updated_at",                          null: false
     t.datetime "scorm12_timestamp"
     t.datetime "scorm2004_timestamp"
   end

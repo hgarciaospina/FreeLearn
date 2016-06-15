@@ -68,7 +68,11 @@ module FreeLearn::VishEditor
         json = JSON(self.json)
         Course.createSCORM(version,folderPath,fileName,json,self,controller)
         self.update_column(((version=="12") ? :scorm12_timestamp : :scorm2004_timestamp), Time.now)
+        return "#{folderPath}#{fileName}.zip"
+      else
+        return Course.scormFolderPath(version)+self.id.to_s+".zip"
       end
+
     end
 
     def scorm_needs_generate(version="2004")

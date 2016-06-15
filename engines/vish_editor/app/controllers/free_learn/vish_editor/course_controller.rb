@@ -71,6 +71,7 @@ module FreeLearn
             render :json => {:url => "/course/" + course.id.to_s, :uploadPath => "/course/" + course.id.to_s, :editPath => "/course/" + course.id.to_s+"/edit", :id => course.id}
           else
             convertToScormFile(course)
+            render :json => {:url => "/course/" + course.id.to_s, :uploadPath => "/course/" + course.id.to_s, :editPath => "/course/" + course.id.to_s+"/edit", :id => course.id}
           end
         
         end
@@ -96,7 +97,10 @@ module FreeLearn
 
       def convertToScormFile(course)
         @course = course
-        @course.to_scorm(self)
+        folder_path = @course.to_scorm(self)
+        title = course.title || "Other than"
+        description = course.description || "Cooldescription"
+        FreeLearn::ScormSystem::ScormFile.create!  :name  => title, :description   => description,:avatar_url => "/images/rabbittakeaway_300.jpg",:source =>  File.open(folder_path)
       end
       
     end

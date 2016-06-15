@@ -307,8 +307,12 @@ SGAME_WEB = (function($,undefined){
 				return;
 			}
 
-			var sf = catalog.sfs[id];
-			_addSF(sf);
+			var sfs = null;
+			for(var i = 0; i< catalog.sfs.length;i++){
+				if (catalog.sfs[i].id == id) sfs = catalog.sfs[i];
+			}
+
+			_addSF(sfs);
 
 		}
 	}
