@@ -98,8 +98,8 @@ module FreeLearn
       def convertToScormFile(course)
         @course = course
         folder_path = @course.to_scorm(self)
-        title = course.title || "Other than"
-        description = course.description || "Cooldescription"
+        title = course.title || "Default title"
+        description = course.description || "Default Description"
         FreeLearn::ScormSystem::ScormFile.create!  :name  => title, :description   => description,:avatar_url => "/images/rabbittakeaway_300.jpg",:source =>  File.open(folder_path)
       end
       
