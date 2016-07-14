@@ -15,7 +15,7 @@ module FreeLearn::ScormCreator
 		end
 
 		def gallery
-			render "main_views/gallery"
+			render "main_views/games_gallery"
 		end
 
 		def json_game

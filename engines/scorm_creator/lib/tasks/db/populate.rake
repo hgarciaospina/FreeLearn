@@ -83,18 +83,18 @@ namespace :db do
 								:description=>"Sokoban is a type of transport puzzle, in which the player pushes diamonds around in a warehouse",
 								:avatar_url=>"/images/game_sokoban.png"
 
-	nPark = FreeLearn::ScormCreator::GameTemplate.create! 	:name=>"Natural Park",
-								:description=>"Go meet and feed the lynxes in this park.",
-								:avatar_url=>"/images/game_dpark.png"
+	#nPark = FreeLearn::ScormCreator::GameTemplate.create! 	:name=>"Natural Park",
+	#							:description=>"Go meet and feed the lynxes in this park.",
+	#							:avatar_url=>"/images/game_dpark.png"
 
 	sInvaders = FreeLearn::ScormCreator::GameTemplate.create! 	:name=>"Asteroid Invaders",
 								:description=>"Destroy the space ships",
-								:avatar_url=>"/images/game_dpark.png"
+								:avatar_url=>"/images/space_invader.jpg"
 
 	#Now the events of the templates
 	oArenaEvent1 = FreeLearn::ScormCreator::GameTemplateEvent.create! :name=>"Extra weapon", :description=>"Event triggered when the player achieved a new weapon", :event_type=>"extra_weapon", :game_template_id=>oArena.id, :id_in_game=>1
 	sokobanEvent1 = FreeLearn::ScormCreator::GameTemplateEvent.create! :name=>"Extra live", :description=>"Event triggered when the devil catches the player", :event_type=>"extra_life", :game_template_id=>sokoban.id, :id_in_game=>1
-	nParkEvent1 = FreeLearn::ScormCreator::GameTemplateEvent.create! :name=>"Gardener Event", :description=>"Event triggered when the player talks to the gardener", :event_type=>"blocker", :game_template_id=>nPark.id, :id_in_game=>1
+	#nParkEvent1 = FreeLearn::ScormCreator::GameTemplateEvent.create! :name=>"Gardener Event", :description=>"Event triggered when the player talks to the gardener", :event_type=>"blocker", :game_template_id=>nPark.id, :id_in_game=>1
 	sInvadersEvent1 = FreeLearn::ScormCreator::GameTemplateEvent.create! :name=>"Extra Life", :description=>"Someone dies to recover", :event_type=>"extra_life", :game_template_id=>sInvaders.id, :id_in_game=>1
 
 	#Now the games
@@ -134,12 +134,12 @@ namespace :db do
 	FreeLearn::ScormCreator::EventMapping.create! :game_id => sokobanInstance2.id, :game_template_event_id => sokobanEvent1.id, :lo_id => sf1.los.first.id
 
 	#Natural Park example
-	nParkInstance = FreeLearn::ScormCreator::Game.create! :name=>"Natural Park", :description=>"Natural Park Instance", :avatar_url=>"/images/game_dpark.png", :game_template_id=>nPark.id
+	#nParkInstance = FreeLearn::ScormCreator::Game.create! :name=>"Natural Park", :description=>"Natural Park Instance", :avatar_url=>"/images/game_dpark.png", :game_template_id=>nPark.id
 	#Event mapping for the nPark game
 
-	(sf8.ids).uniq.each do |lo_id|
-		FreeLearn::ScormCreator::EventMapping.create! :game_id => nParkInstance.id, :game_template_event_id => nParkEvent1.id, :lo_id => lo_id
-	end
+	#(sf8.ids).uniq.each do |lo_id|
+	#	FreeLearn::ScormCreator::EventMapping.create! :game_id => nParkInstance.id, :game_template_event_id => nParkEvent1.id, :lo_id => lo_id
+	#end
 
 	puts "Populate finish"
   end

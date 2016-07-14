@@ -6,7 +6,7 @@ FreeLearn::Core::Engine.routes.draw do
 		resources :game_template
 		resources :lo
 		get 'games', to: "api#index"
-		get 'gallery', to: "api#gallery"
+		get 'games_gallery', to: "api#gallery"
 		get 'lo/:id/metadata' => 'lo#metadata'
 
 	end
