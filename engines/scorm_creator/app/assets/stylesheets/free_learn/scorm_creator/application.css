@@ -11,3 +11,17 @@
  *= require_self
  *= require_tree .
  */
+
+.game_gallery .row{
+    text-align: justify;
+}
+
+.game_gallery h1{
+    text-align: center;
+}
+
+.custom-button-width{
+    width: 78px !important;
+    background-color: white;
+    color: black;
+}

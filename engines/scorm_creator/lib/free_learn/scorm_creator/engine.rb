@@ -4,7 +4,6 @@ module FreeLearn
       isolate_namespace ScormCreator
 
       paths["app/views"] << "app/views/free_learn/scorm_creator"
-      
     
       initializer :append_migrations do |app|
         unless app.root.to_s.match(root.to_s)

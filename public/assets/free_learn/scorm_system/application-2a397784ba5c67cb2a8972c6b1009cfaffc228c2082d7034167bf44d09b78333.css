@@ -1,7 +1,8 @@
-/* line 1, /home/berto/Repositories/FreeLearn/engines/scorm_system/app/assets/stylesheets/free_learn/scorm_system/gallery.css.scss */
-.column_image_full {
-  width: 100%;
+.games_gallery_image img:hover{
+	content: url("/assets/free_learn/scorm_system/WikiProyect_logo_hover.png");
 }
+
+.tool{background: green}
 /*
  * This is a manifest file that'll be compiled into application.css, which will include all the files
  * listed below.
@@ -17,3 +18,5 @@
 
  */
 
+
+@import "galleries";

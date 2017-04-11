@@ -1,17 +1,27 @@
+<style type="text/css">
+  .games_gallery_image img:hover{
+    content: url("/assets/free_learn/scorm_system/WikiProyect_logo_hover.png");
+  }
+
+  .scorm_gallery_image img:hover{
+    content: url("/assets/free_learn/scorm_system/educational_hat_hover.png");
+  }
+</style>
+
 <div class="tool">
 	<div class="game_gallery">
 		<div class="row">
 			<div class="col-md-6">
 				<h1 style="text-align: center;margin-bottom:52px;">SCORM GALLERY</h1>
-                <a href= <%= free_learn.scorm_gallery_path %> >
+                <a class="scorm_gallery_image" href= <%= free_learn.scorm_gallery_path %> >
                     <img style="width: 100%" width="50%" height="50%" src="/assets/free_learn/scorm_system/educational_hat.png"/>
 				</a>
 			</div>
 			<div class="col-md-6">
 				<h1 style="text-align: center; margin-bottom:20px;">GAMES <br>GALLERY</h1>
-                <a href= <%= free_learn.games_gallery_path %> >
+                <a class="games_gallery_image" href= <%= free_learn.games_gallery_path %> >
                     <img style="width: 100%" width="50%" height="50%" src="/assets/free_learn/scorm_system/WikiProyect_logo.png"/>
-				</a>
+				        </a>
 			</div>
 		</div>
 	</div>

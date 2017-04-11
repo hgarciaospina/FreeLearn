@@ -12,3 +12,7 @@
  *= require_tree .
  *= require_self
  */
+
+.games_gallery_image img:hover{
+    content: url("/assets/free_learn/scorm_system/WikiProyect_logo_hover.png");
+}

@@ -24,5 +24,5 @@ en:
   main_view:
     build_courses: "Build courses"
     build_games: "Build games"
-    description_courses: "Create your course, we provide you a series of tools to make slides as the base for your course."
-    description_games: "This platform allows you to integrate courses in SCORM format inside HTML5 game. This basically means that courses created before, can be fired inside games when an event is fired, such as grabbing a weapon or dying in a level. We provide the games so you don't really need to worry about it, just choose the course you want to add to the game."
+    description_courses: "Create your course, we provide you a series of tools to make slides as the base for your course. This course will further part of the game you choose from our catalog. Create short courses to improve the game experience."
+    description_games: "This platform allows you to integrate courses inside HTML5 games. This means that courses created before, will be part of games when an event is triggered, such as grabbing a weapon or dying in a level. We provide the games so you don't really need to worry about it, just choose the course you want to add to the game."
