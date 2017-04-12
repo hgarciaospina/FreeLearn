@@ -39,12 +39,16 @@
   <a id="game_fancybox_link" href="#game_fancybox" style="display:none"></a>
   <div style='display:none'>
     <div id="game_fancybox">
+      <button id="close_fancy_button" type="button" class="close" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
       <div id="form_game_title">
       Create new game
       </div>
       <%= form_for(:game, :html => {:multipart => true, :id=>"create_form"}, :url => "/game") do |f| %>
         <input type="hidden" name="g_template_id" id="g_template_id" value=""></input>
         <input type="hidden" name="scorms_ids" id="scorms_ids" value=""></input>
+
         <p><span class="game_form_span">Game template:</span><span id="g_template_info"></span></p>
         <p><span class="game_form_span">Scorm packages:</span><span id="scorms_info"></span></p>
 

@@ -60,6 +60,9 @@ input::-moz-focus-inner {
 #game_fancybox {
   background-color:gray;
   color: black;
+  height: auto;
+  width: auto;
+  padding: 30px;
 }
 
 #form_game_title {

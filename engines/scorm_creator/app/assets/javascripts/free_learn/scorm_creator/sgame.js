@@ -32,8 +32,9 @@ SGAME_WEB = (function($,undefined){
 		$("#upload_scorm").fancybox({
 			'autoDimensions' : false,
 			'scrolling': 'no',
-			'width': 600,
+			'width': 300,
 			'height': 400,
+            'autoResize': false,
 			'padding': 0,
 			'hideOnOverlayClick': false,
 			'hideOnContentClick': false,
@@ -43,13 +44,17 @@ SGAME_WEB = (function($,undefined){
 		$("#game_fancybox_link").fancybox({
 			'autoDimensions' : false,
 			'scrolling': 'no',
-			'width': 600,
-			'height': 400,
+			'height': 300,
+            'autoResize': false,
 			'padding': 0,
 			'hideOnOverlayClick': false,
 			'hideOnContentClick': false,
 			'showCloseButton': true
 		});
+
+        $("#close_fancy_button").click(function(){
+            $.fancybox.close();
+        });
 	};
 
 	var _createGameCarrousel = function(games){
@@ -193,6 +198,7 @@ SGAME_WEB = (function($,undefined){
 				$("#g_template_info").html(current_game.name);
 				$("#scorms_info").html(scorms_info);
 				$("#game_fancybox_link").click();
+                $("#game_fancybox_link").click();
 			}
 	 	});
 
@@ -403,15 +409,15 @@ SGAME_WEB = (function($,undefined){
 		$("a[rel=hidden_lo]").fancybox({
                 'transitionIn'      : 'none',
                 'transitionOut'     : 'none',
-                'width'             : '75%',
-                'height'            : '85%',
-                'autoScale'         : false,
+                'height'            :  300,
+                'autoResize'         : false,
                 'type'              : 'iframe',
                 'titleShow'			: true,
                 'titlePosition' 	: 'inside',
                 'onClosed'			: function(){ $("a[rel=hidden_lo]").remove();}
             });
-		$("a[rel=hidden_lo]:first").click();
+		//$("a[rel=hidden_lo]:first").click();
+
 	};
 
 	var _removeSF = function(sf){
