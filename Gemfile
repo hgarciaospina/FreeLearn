@@ -32,7 +32,9 @@ gem 'rails-i18n'
 # gem 'unicorn'
 
 # Use Capistrano for deployment
- gem 'capistrano-rails', group: :development
+gem 'capistrano-rails', group: :development
+gem 'capistrano-bundler', group: :development
+gem 'capistrano-rbenv', group: :development
 
 #Engines of FreeLearn
 gem 'modular_engine'

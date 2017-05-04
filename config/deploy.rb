@@ -1,127 +1,41 @@
-require 'yaml'
-require "bundler/capistrano"
+# config valid only for current version of Capistrano
+lock "3.8.1"
 
-begin
-  config = YAML.load_file(File.expand_path('../deploy/' + ENV['DEPLOY'] + '.yml', __FILE__))
-  puts config["message"]
-  repository = config["repository"]
-  server_url = config["server_url"]
-  username = config["username"]
-  keys = config["keys"]
-  branch = config["branch"] || "master"
-  with_workers = config["with_workers"]
-rescue Exception => e
-  #puts e.message
-  puts "Sorry, the file config/deploy/" + ENV['DEPLOY'] + '.yml does not exist.'
-  exit
-end
+set :application, "sgame"
 
-set :keep_releases, 2
-
-set :default_environment, {
-    'PATH' => '/home/'+username+'/.rvm/gems/ruby-2.2.0/bin:/home/'+username+'/.rvm/gems/ruby-2.2.0@global/bin:/home/'+username+'/.rvm/rubies/ruby-2.2.0/bin:/home/'+username+'/.rvm/bin:/home/'+username+'/.rbenv/plugins/ruby-build/bin:/home/'+username+'/.rbenv/shims:/home/'+username+'/.rbenv/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games',
-    'RUBY_VERSION' => 'ruby-2.2.0p0',
-    'GEM_HOME'     => '/home/'+username+'/.rvm/gems/ruby-2.2.0',
-    'GEM_PATH'     => '/home/'+username+'/.rvm/gems/ruby-2.2.0:/home/'+username+'/.rvm/gems/ruby-2.2.0@global',
-    'BUNDLE_PATH'  => '/home/'+username+'/.rvm/gems/ruby-2.2.0:/home/'+username+'/.rvm/gems/ruby-2.2.0@global'
-}
-
-# Where we get the app from and all...
 set :scm, :git
-set :repository, repository
+set :repository, "git@github.com:/ging/sgame_platform.git"
+set :scm_passphrase
 
-puts "Using branch: '" + branch + "'"
-set :branch, fetch(:branch, branch)
+set :user, :sgame
 
-# Some options
-default_run_options[:pty] = true
-ssh_options[:forward_agent] = true
-if keys
-  ssh_options[:keys] = keys
-end
+set :stages, ["staging", "production"]
+set :default_stage, "staging"
 
-# Servers to deploy to
-set :application, "vish"
-set :user, username
+# Default branch is :master
+# ask :branch, `git rev-parse --abbrev-ref HEAD`.chomp
 
-role :web, server_url # Your HTTP server, Apache/etc
-role :app, server_url # This may be the same as your `Web` server
-role :db,  server_url, :primary => true # This is where Rails migrations will run
+# Default deploy_to directory is /var/www/my_app_name
+# set :deploy_to, "/var/www/my_app_name"
 
-after 'deploy:update_code', 'deploy:fix_file_permissions'
-#after 'deploy:update_code', 'deploy:link_files'
-before 'deploy:assets:precompile', 'deploy:link_files'
+# Default value for :format is :airbrussh.
+# set :format, :airbrussh
 
-if with_workers
-  after 'deploy:restart', 'deploy:stop_workers'
-end
-after 'deploy:update_code', 'deploy:rm_dot_git', 'rvm:trust_rvmrc'
-after "deploy:restart", "deploy:cleanup"
+# You can configure the Airbrussh format using :format_options.
+# These are the defaults.
+# set :format_options, command_output: true, log_file: "log/capistrano.log", color: :auto, truncate: :auto
 
+# Default value for :pty is false
+# set :pty, true
 
-namespace(:deploy) do
-  # Tasks for passenger mod_rails
-  task :start do ; end
-  task :stop do ; end
-  task :restart, :roles => :app, :except => { :no_release => true } do
-    run "#{try_sudo} touch #{File.join(current_path,'tmp','restart.txt')}"
-  end
+# Default value for :linked_files is []
+# append :linked_files, "config/database.yml", "config/secrets.yml"
 
-  # Other tasks
-  task :fix_file_permissions do
-    # LOG
-    run "#{try_sudo} touch #{release_path}/log/production.log"
-    run "#{try_sudo} /bin/chmod 666 #{release_path}/log/production.log"
+# Default value for linked_dirs is []
+# append :linked_dirs, "log", "tmp/pids", "tmp/cache", "tmp/sockets", "public/system"
 
-    # TMP
-    run "/bin/chmod -R g+w #{release_path}/tmp"
-    sudo "/bin/chgrp -R www-data #{release_path}/tmp"
-    run "#{try_sudo} /bin/chmod -R 777 #{release_path}/public/tmp/json"
-    run "#{try_sudo} /bin/chmod -R 777 #{release_path}/public/tmp/scorm"
+# Default value for default_env is {}
+# set :default_env, { path: "/opt/ruby/bin:$PATH" }
 
-    # config.ru
-    sudo "/bin/chown www-data #{release_path}/config.ru"
-
-    # SCORM
-    run "#{try_sudo} /bin/chmod -R 777 #{release_path}/public/scorm/12"
-    run "#{try_sudo} /bin/chmod -R 777 #{release_path}/public/scorm/2004"
-  end
-
-  task :link_files do
-    run "ln -s #{shared_path}/documents #{release_path}/"
-    run "ln -s #{shared_path}/webappscode #{release_path}/public/webappscode"
-    run "ln -s #{shared_path}/imscppackages #{release_path}/public/imscp/packages"
-    run "ln -s #{shared_path}/scormpackages #{release_path}/public/scorm/packages"
-    run "ln -s #{shared_path}/database.yml #{release_path}/config"
-    run "ln -s #{shared_path}/application_config.yml #{release_path}/config"
-    run "ln -s #{shared_path}/exception_notification.rb #{release_path}/config/initializers"
-    run "ln -s #{shared_path}/social_stream-ostatus.rb #{release_path}/config/initializers"
-    run "ln -s #{shared_path}/sitemap #{release_path}/public/sitemap"
-  end
-
-  task :start_sphinx do
-    run "cd #{current_path} && kill -9 `cat log/searchd.production.pid` || true"
-    run "cd #{release_path} && bundle exec \"rake ts:rebuild RAILS_ENV=production\""
-  end
-
-  task :rm_dot_git do
-    run "cd #{release_path} && rm -rf .git"
-  end
-
-  task :fix_sphinx_file_permissions do
-    run "/bin/chmod g+rw #{release_path}/log/searchd*"
-    sudo "/bin/chgrp www-data #{release_path}/log/searchd*"
-  end
-
-  task :stop_workers do
-    sudo_command = "rvmsudo"
-    run "cd #{current_path} && #{sudo_command} bundle exec \"rake workers:killall RAILS_ENV=production\""
-  end
-
-end
-
-namespace :rvm do
-  task :trust_rvmrc do
-    run "rvm rvmrc trust #{release_path} < /dev/null"
-  end
-end
+# Default value for keep_releases is 5
+# set :keep_releases, 5

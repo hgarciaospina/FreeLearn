@@ -1,0 +1,7 @@
+message: "Deploying to EXAMPLE!"
+repository: git@github.com:ging/sgame_platform.git
+server_url: 127.0.0.1 #put here the server URL (e.g. example.com)
+username: sgame
+keys: /home/username/.ssh/ssh-keypair #empty or remove this line if you don't have any key
+branch: sgame
+with_workers: false  #true if this instance has workers, i.e. video and audio conversion to HTML5 (Media Conversion service)
