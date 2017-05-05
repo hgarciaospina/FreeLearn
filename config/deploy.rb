@@ -1,19 +1,26 @@
 # config valid only for current version of Capistrano
 lock "3.8.1"
 
-set :application, "sgame"
+set :application, "sgame_platform"
 
 set :scm, :git
-set :repository, "git@github.com:/ging/sgame_platform.git"
+set :repo_url, "git@github.com:ging/sgame_platform.git"
 set :scm_passphrase
 
 set :user, :sgame
+
+set :rbenv_type, :user # or :system, depends on your rbenv setup
+set :rbenv_ruby, '2.2.3'
+
+set :rbenv_prefix, "RBENV_ROOT=#{fetch(:rbenv_path)} RBENV_VERSION=#{fetch(:rbenv_ruby)} #{fetch(:rbenv_path)}/bin/rbenv exec"
+set :rbenv_map_bins, %w{rake gem bundle ruby rails}
+set :rbenv_roles, :all # default value
 
 set :stages, ["staging", "production"]
 set :default_stage, "staging"
 
 # Default branch is :master
-# ask :branch, `git rev-parse --abbrev-ref HEAD`.chomp
+#ask :branch, `git rev-parse --abbrev-ref HEAD`.chomp
 
 # Default deploy_to directory is /var/www/my_app_name
 # set :deploy_to, "/var/www/my_app_name"
