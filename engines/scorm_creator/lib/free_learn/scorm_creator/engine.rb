@@ -20,9 +20,9 @@ module FreeLearn
       config.local_asset_js_path = File.join(root, "app", "assets", "javascripts").to_s
       config.local_asset_css_path = File.join(root, "app", "assets", "stylesheets").to_s
 
-      if Rails.application.config.serve_static_assets
-        app.middleware.insert_before(::ActionDispatch::Static, ::ActionDispatch::Static, "#{root}/public")
-      end
+
+      app.middleware.insert_before(::ActionDispatch::Static, ::ActionDispatch::Static, "#{root}/public")
+
 
       config.to_prepare do
         Dir.glob(Engine.root.join("app", "decorators", "**", "*_decorator*.rb")) do |c|
